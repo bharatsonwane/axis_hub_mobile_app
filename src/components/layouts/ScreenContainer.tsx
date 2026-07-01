@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react';
-import { StyleSheet, View, type ViewStyle } from 'react-native';
+import { View, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { createScreenContainerStyles } from '@/components/layouts/screenContainer.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
 type ScreenContainerProps = {
@@ -13,23 +14,14 @@ export default function ScreenContainer({
   style,
 }: ScreenContainerProps) {
   const { colors } = useTheme();
+  const { safeAreaStyle, contentStyle } = createScreenContainerStyles({
+    colors,
+    style,
+  });
 
   return (
-    <SafeAreaView
-      style={[styles.safeArea, { backgroundColor: colors.background }, style]}
-    >
-      <View style={styles.content}>{children}</View>
+    <SafeAreaView style={safeAreaStyle}>
+      <View style={contentStyle}>{children}</View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-  },
-});

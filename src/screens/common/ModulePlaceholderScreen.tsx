@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
+import { createModulePlaceholderScreenStyles } from '@/screens/common/modulePlaceholderScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
-import { radius, spacing, typography } from '@/theme/tokens';
 
 type ModulePlaceholderScreenProps = {
   title: string;
@@ -14,46 +14,15 @@ export default function ModulePlaceholderScreen({
   description,
 }: ModulePlaceholderScreenProps) {
   const { colors } = useTheme();
+  const styles = createModulePlaceholderScreenStyles({ colors });
 
   return (
     <ScreenContainer>
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: colors.card,
-            borderColor: colors.border,
-          },
-        ]}
-      >
-        <Text style={[styles.title, { color: colors.foreground }]}>{title}</Text>
-        <Text style={[styles.description, { color: colors.mutedForeground }]}>
-          {description}
-        </Text>
-        <Text style={[styles.hint, { color: colors.mutedForeground }]}>
-          Coming in a future phase.
-        </Text>
+      <View style={styles.card}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        <Text style={styles.hint}>Coming in a future phase.</Text>
       </View>
     </ScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    borderWidth: 1,
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    gap: spacing.sm,
-  },
-  title: {
-    fontSize: typography.title,
-    fontWeight: '700',
-  },
-  description: {
-    fontSize: typography.body,
-  },
-  hint: {
-    fontSize: typography.caption,
-    marginTop: spacing.sm,
-  },
-});

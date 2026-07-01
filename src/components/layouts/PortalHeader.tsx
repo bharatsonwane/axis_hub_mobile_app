@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import type { DrawerHeaderProps } from '@react-navigation/drawer';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createPortalHeaderStyles } from '@/components/layouts/portalHeader.styles';
 import type { MobileAuthRoute } from '@/navigation/routes/types';
 import PortalSwitcher from '@/navigation/PortalSwitcher';
 import { useTheme } from '@/providers/ThemeProvider';
-import { spacing, typography } from '@/theme/tokens';
 
 type PortalHeaderProps = DrawerHeaderProps & {
   portalRoute: MobileAuthRoute;
@@ -20,42 +20,29 @@ export default function PortalHeader({
   const insets = useSafeAreaInsets();
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const title = options.title ?? portalRoute.title;
+  const styles = createPortalHeaderStyles({
+    colors,
+    paddingTop: insets.top,
+  });
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: colors.sidebar,
-          borderBottomColor: colors.border,
-          paddingTop: insets.top,
-        },
-      ]}
-    >
+    <View style={styles.container}>
       <View style={styles.row}>
         <Pressable
           onPress={() => navigation.openDrawer()}
           style={styles.menuButton}
         >
-          <Text style={[styles.menuIcon, { color: colors.sidebarForeground }]}>
-            ☰
-          </Text>
+          <Text style={styles.menuIcon}>☰</Text>
         </Pressable>
 
         <Pressable
           onPress={() => setSwitcherOpen(true)}
           style={styles.titleBlock}
         >
-          <Text
-            style={[styles.title, { color: colors.sidebarForeground }]}
-            numberOfLines={1}
-          >
+          <Text style={styles.title} numberOfLines={1}>
             Axishub
           </Text>
-          <Text
-            style={[styles.subtitle, { color: colors.mutedForeground }]}
-            numberOfLines={1}
-          >
+          <Text style={styles.subtitle} numberOfLines={1}>
             {title} · {portalRoute.title}
           </Text>
         </Pressable>
@@ -68,33 +55,3 @@ export default function PortalHeader({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderBottomWidth: 1,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    gap: spacing.sm,
-  },
-  menuButton: {
-    padding: spacing.xs,
-  },
-  menuIcon: {
-    fontSize: 22,
-    fontWeight: '700',
-  },
-  titleBlock: {
-    flex: 1,
-  },
-  title: {
-    fontSize: typography.body,
-    fontWeight: '700',
-  },
-  subtitle: {
-    fontSize: typography.caption,
-  },
-});

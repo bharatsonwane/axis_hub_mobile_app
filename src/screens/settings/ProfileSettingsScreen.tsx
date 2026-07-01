@@ -1,10 +1,10 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
 import { useAuth } from '@/contexts/AuthContextProvider';
+import { createProfileSettingsScreenStyles } from '@/screens/settings/profileSettingsScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 import type { ThemePreference } from '@/theme/types';
-import { radius, spacing, typography } from '@/theme/tokens';
 import { showSuccessToast } from '@/utils/toast';
 
 const themeOptions: ThemePreference[] = ['light', 'dark', 'system'];
@@ -12,6 +12,8 @@ const themeOptions: ThemePreference[] = ['light', 'dark', 'system'];
 export default function ProfileSettingsScreen() {
   const { colors, theme, resolvedTheme, setTheme } = useTheme();
   const { loggedInUser, logout } = useAuth();
+  const { styles, getThemeButtonStyle, getThemeButtonTextStyle } =
+    createProfileSettingsScreenStyles({ colors });
 
   const handleLogout = () => {
     logout()
@@ -21,24 +23,12 @@ export default function ProfileSettingsScreen() {
 
   return (
     <ScreenContainer>
-      <View
-        style={[
-          styles.card,
-          {
-            backgroundColor: colors.card,
-            borderColor: colors.border,
-          },
-        ]}
-      >
-        <Text style={[styles.title, { color: colors.foreground }]}>
-          Profile & Settings
-        </Text>
+      <View style={styles.card}>
+        <Text style={styles.title}>Profile & Settings</Text>
 
         <View style={styles.section}>
-          <Text style={[styles.label, { color: colors.mutedForeground }]}>
-            Name
-          </Text>
-          <Text style={[styles.value, { color: colors.foreground }]}>
+          <Text style={styles.label}>Name</Text>
+          <Text style={styles.value}>
             {[loggedInUser?.firstName, loggedInUser?.lastName]
               .filter(Boolean)
               .join(' ') || '—'}
@@ -46,17 +36,11 @@ export default function ProfileSettingsScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.label, { color: colors.mutedForeground }]}>
-            Email
-          </Text>
-          <Text style={[styles.value, { color: colors.foreground }]}>
-            {loggedInUser?.email ?? '—'}
-          </Text>
+          <Text style={styles.label}>Email</Text>
+          <Text style={styles.value}>{loggedInUser?.email ?? '—'}</Text>
         </View>
 
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Appearance
-        </Text>
+        <Text style={styles.sectionTitle}>Appearance</Text>
         <View style={styles.themeRow}>
           {themeOptions.map(option => {
             const isActive = theme === option;
@@ -64,97 +48,19 @@ export default function ProfileSettingsScreen() {
               <Pressable
                 key={option}
                 onPress={() => setTheme(option)}
-                style={[
-                  styles.themeButton,
-                  {
-                    backgroundColor: isActive ? colors.primary : colors.muted,
-                    borderColor: colors.border,
-                  },
-                ]}
+                style={getThemeButtonStyle(isActive)}
               >
-                <Text
-                  style={[
-                    styles.themeButtonText,
-                    {
-                      color: isActive
-                        ? colors.primaryForeground
-                        : colors.foreground,
-                    },
-                  ]}
-                >
-                  {option}
-                </Text>
+                <Text style={getThemeButtonTextStyle(isActive)}>{option}</Text>
               </Pressable>
             );
           })}
         </View>
-        <Text style={[styles.themeMeta, { color: colors.mutedForeground }]}>
-          Resolved: {resolvedTheme}
-        </Text>
+        <Text style={styles.themeMeta}>Resolved: {resolvedTheme}</Text>
 
-        <Pressable
-          onPress={handleLogout}
-          style={[styles.logoutButton, { backgroundColor: colors.destructive }]}
-        >
-          <Text style={[styles.logoutText, { color: colors.background }]}>
-            Log out
-          </Text>
+        <Pressable onPress={handleLogout} style={styles.logoutButton}>
+          <Text style={styles.logoutText}>Log out</Text>
         </Pressable>
       </View>
     </ScreenContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    borderWidth: 1,
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    gap: spacing.md,
-  },
-  title: {
-    fontSize: typography.title,
-    fontWeight: '700',
-  },
-  section: {
-    gap: spacing.xs,
-  },
-  label: {
-    fontSize: typography.caption,
-    fontWeight: '600',
-  },
-  value: {
-    fontSize: typography.body,
-  },
-  sectionTitle: {
-    fontSize: typography.body,
-    fontWeight: '600',
-    marginTop: spacing.sm,
-  },
-  themeRow: {
-    flexDirection: 'row',
-    gap: spacing.sm,
-  },
-  themeButton: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.md,
-    borderWidth: 1,
-  },
-  themeButtonText: {
-    textTransform: 'capitalize',
-  },
-  themeMeta: {
-    fontSize: typography.caption,
-  },
-  logoutButton: {
-    marginTop: spacing.md,
-    borderRadius: radius.md,
-    paddingVertical: spacing.md,
-    alignItems: 'center',
-  },
-  logoutText: {
-    fontSize: typography.body,
-    fontWeight: '600',
-  },
-});

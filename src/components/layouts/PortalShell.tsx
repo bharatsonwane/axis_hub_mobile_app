@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
+import { createPortalShellStyles } from '@/components/layouts/portalShell.styles';
 import { usePortalContext } from '@/navigation/PortalContextProvider';
 import CarrierPortalNavigator from '@/navigation/portals/CarrierPortalNavigator';
 import CustomerPortalNavigator from '@/navigation/portals/CustomerPortalNavigator';
@@ -11,6 +12,7 @@ import { useTheme } from '@/providers/ThemeProvider';
 
 export default function PortalShell() {
   const { colors } = useTheme();
+  const styles = createPortalShellStyles({ colors });
   const dispatch = useAppDispatch();
   const { portalContext, tenantId, customerId } = usePortalContext();
   const loggedInUser = useAppSelector(state => state.user.user);
@@ -35,7 +37,7 @@ export default function PortalShell() {
   }, [portalContext, tenantId, tenants, currentTenant?.id, dispatch]);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={styles.container}>
       {portalContext === 'system' ? <SystemPortalNavigator /> : null}
       {portalContext === 'carriers' ? (
         <CarrierPortalNavigator key={`carrier-${tenantId}`} />
@@ -46,9 +48,3 @@ export default function PortalShell() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

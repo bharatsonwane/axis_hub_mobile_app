@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
-import type { ThemeTokens } from '@/theme/types';
+import type { ThemedStylesParams } from '@/theme/createThemedStyles';
 import { radius, spacing, typography } from '@/theme/tokens';
 
-type CreateLoginScreenStylesParams = {
-  colors: ThemeTokens;
+type CreateLoginScreenStylesParams = ThemedStylesParams & {
   isLoading: boolean;
 };
 
@@ -83,7 +82,15 @@ export function createLoginScreenStyles({
     passwordRow: {
       position: 'relative',
     },
-    passwordInput: {
+    passwordField: {
+      borderWidth: 1,
+      borderRadius: radius.md,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
+      fontSize: typography.body,
+      color: colors.foreground,
+      borderColor: colors.border,
+      backgroundColor: colors.background,
       paddingRight: 64,
     },
     showPasswordButton: {

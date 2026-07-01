@@ -106,7 +106,7 @@ export default function LoginScreen() {
                 placeholder="Enter your password"
                 placeholderTextColor={placeholderTextColor}
                 editable={!isLoading}
-                style={[styles.input, styles.passwordInput]}
+                style={styles.passwordField}
               />
               <Pressable
                 onPress={() => setShowPassword(current => !current)}
