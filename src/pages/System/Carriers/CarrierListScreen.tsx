@@ -9,45 +9,45 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
-import type { SystemUser } from '@/schemaTypes/systemUserSchemaTypes';
-import { fetchSystemUsers } from '@/redux/actions/systemUserActions';
+import type { Carrier } from '@/schemaTypes/carrierSchemaTypes';
+import { fetchCarriers } from '@/redux/actions/systemCarrierActions';
 import {
-  selectSystemUserLoading,
-  selectSystemUserPagination,
-  selectSystemUsers,
-} from '@/redux/slices/systemUserSlice';
+  selectCarrierLoading,
+  selectCarrierPagination,
+  selectCarriers,
+} from '@/redux/slices/systemCarrierSlice';
 import { createSystemListScreenStyles } from '@/pages/System/shared/listScreen.styles';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useTheme } from '@/providers/ThemeProvider';
-import { formatUserName } from '@/utils/formatDisplay';
 import { showErrorToast } from '@/utils/toast';
 
 const PAGE_SIZE = 20;
 
-export default function SystemUserList() {
+export default function CarrierListScreen() {
   const { colors } = useTheme();
   const styles = createSystemListScreenStyles({ colors });
   const dispatch = useAppDispatch();
   const navigation = useNavigation<any>();
-  const users = useAppSelector(selectSystemUsers);
-  const pagination = useAppSelector(selectSystemUserPagination);
-  const isLoading = useAppSelector(selectSystemUserLoading);
+  const carriers = useAppSelector(selectCarriers);
+  const pagination = useAppSelector(selectCarrierPagination);
+  const isLoading = useAppSelector(selectCarrierLoading);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
 
-  const loadUsers = useCallback(
+  const loadCarriers = useCallback(
     (nextPage: number, searchTerm: string) => {
       dispatch(
-        fetchSystemUsers({
+        fetchCarriers({
           page: nextPage,
           limit: PAGE_SIZE,
           search: searchTerm || undefined,
+          isRequested: false,
         }),
       )
         .unwrap()
         .catch(error => {
           showErrorToast(
-            typeof error === 'string' ? error : 'Failed to load users',
+            typeof error === 'string' ? error : 'Failed to load carriers',
           );
         });
     },
@@ -56,72 +56,66 @@ export default function SystemUserList() {
 
   useEffect(() => {
     setPage(1);
-    loadUsers(1, search);
-  }, [loadUsers, search]);
+    loadCarriers(1, search);
+  }, [loadCarriers, search]);
 
   const handleRefresh = () => {
     setPage(1);
-    loadUsers(1, search);
+    loadCarriers(1, search);
   };
 
   const handleLoadMore = () => {
     if (isLoading || !pagination) {
       return;
     }
-    if (page >= (pagination.totalPages || 1)) {
+    const totalPages = pagination.totalPages || 1;
+    if (page >= totalPages) {
       return;
     }
     const nextPage = page + 1;
     setPage(nextPage);
-    loadUsers(nextPage, search);
+    loadCarriers(nextPage, search);
   };
 
   const hasMore =
     pagination != null && page < (pagination.totalPages || 1);
 
-  const renderItem = ({ item }: { item: SystemUser }) => (
+  const renderItem = ({ item }: { item: Carrier }) => (
     <Pressable
       style={styles.listItem}
       onPress={() =>
-        navigation.navigate('SystemUserDetail', { userId: item.id })
+        navigation.navigate('SystemCarrierDetail', { carrierId: item.id })
       }
     >
-      <Text style={styles.listItemTitle}>
-        {formatUserName({
-          firstName: item.firstName,
-          lastName: item.lastName,
-          email: item.email,
-        })}
-      </Text>
-      <Text style={styles.listItemMeta}>{item.email ?? '—'}</Text>
+      <Text style={styles.listItemTitle}>{item.name}</Text>
       <Text style={styles.listItemMeta}>
-        {item.isActive ? 'Active' : 'Inactive'}
-        {item.roles?.length
-          ? ` · ${item.roles.map(role => role.name).join(', ')}`
-          : ''}
+        {item.code} · {item.isActive ? 'Active' : 'Inactive'}
       </Text>
+      {item.email ? (
+        <Text style={styles.listItemMeta}>{item.email}</Text>
+      ) : null}
     </Pressable>
   );
 
   return (
     <ScreenContainer>
-      <Text style={styles.heading}>System users</Text>
-      <Text style={styles.subheading}>Read-only list of system users.</Text>
+      <Text style={styles.heading}>Carriers</Text>
+      <Text style={styles.subheading}>Browse carrier tenants on the platform.</Text>
 
       <TextInput
         value={search}
         onChangeText={setSearch}
-        placeholder="Search users"
+        placeholder="Search carriers"
         placeholderTextColor={colors.mutedForeground}
         style={styles.searchInput}
         autoCapitalize="none"
       />
 
-      {isLoading && users.length === 0 ? (
+      {isLoading && carriers.length === 0 ? (
         <ActivityIndicator color={colors.primary} />
       ) : (
         <FlatList
-          data={users}
+          data={carriers}
           keyExtractor={item => String(item.id)}
           renderItem={renderItem}
           style={styles.list}
@@ -130,7 +124,7 @@ export default function SystemUserList() {
             <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
           }
           ListEmptyComponent={
-            <Text style={styles.emptyText}>No users found.</Text>
+            <Text style={styles.emptyText}>No carriers found.</Text>
           }
           ListFooterComponent={
             hasMore ? (

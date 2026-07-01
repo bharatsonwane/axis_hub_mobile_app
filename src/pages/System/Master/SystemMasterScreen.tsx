@@ -5,7 +5,7 @@ import ScreenContainer from '@/components/layouts/ScreenContainer';
 import { createSystemListScreenStyles } from '@/pages/System/shared/listScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
-export default function SystemMaster() {
+export default function SystemMasterScreen() {
   const { colors } = useTheme();
   const styles = createSystemListScreenStyles({ colors });
   const navigation = useNavigation<any>();

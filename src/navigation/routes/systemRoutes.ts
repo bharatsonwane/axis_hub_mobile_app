@@ -1,14 +1,14 @@
-import SystemDashboard from '@/pages/System/Dashboard/system-dashboard';
-import CarrierList from '@/pages/System/Carriers/CarrierList';
-import CarrierDetails from '@/pages/System/Carriers/CarrierDetails';
-import Customers from '@/pages/System/Customers/customers';
-import SystemMaster from '@/pages/System/Master/SystemMaster';
-import SystemUserList from '@/pages/System/SystemUsers/SystemUserList';
-import SystemUserDetails from '@/pages/System/SystemUsers/SystemUserDetails';
-import SystemRoleList from '@/pages/System/Roles/SystemRoleList';
-import SystemRoleDetails from '@/pages/System/Roles/SystemRoleDetails';
-import SystemDbSecretsList from '@/pages/System/DbSecrets/SystemDbSecretsList';
-import SystemDbSecretDetails from '@/pages/System/DbSecrets/SystemDbSecretDetails';
+import SystemDashboardScreen from '@/pages/System/Dashboard/SystemDashboardScreen';
+import CarrierListScreen from '@/pages/System/Carriers/CarrierListScreen';
+import CarrierDetailsScreen from '@/pages/System/Carriers/CarrierDetailsScreen';
+import CustomersScreen from '@/pages/System/Customers/CustomersScreen';
+import SystemMasterScreen from '@/pages/System/Master/SystemMasterScreen';
+import SystemUserListScreen from '@/pages/System/SystemUsers/SystemUserListScreen';
+import SystemUserDetailsScreen from '@/pages/System/SystemUsers/SystemUserDetailsScreen';
+import SystemRoleListScreen from '@/pages/System/Roles/SystemRoleListScreen';
+import SystemRoleDetailsScreen from '@/pages/System/Roles/SystemRoleDetailsScreen';
+import SystemDbSecretsListScreen from '@/pages/System/DbSecrets/SystemDbSecretsListScreen';
+import SystemDbSecretDetailsScreen from '@/pages/System/DbSecrets/SystemDbSecretDetailsScreen';
 import {
   systemPermissionKeys,
   tenantPermissionKeys,
@@ -21,7 +21,7 @@ export const systemRoutes: MobileAuthRoute = {
   allowedSystemPermissions: [systemPermissionKeys.ANY],
   allowedTenantPermissions: [tenantPermissionKeys.ANY],
   description: 'Admin Portal',
-  screen: SystemDashboard,
+  screen: SystemDashboardScreen,
   isShowOnSidebar: false,
   title: 'Admin Portal',
   portalContext: 'system',
@@ -33,7 +33,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'Admin Dashboard',
-      screen: SystemDashboard,
+      screen: SystemDashboardScreen,
       isShowOnSidebar: true,
       title: 'Dashboard',
       icon: 'dashboard',
@@ -47,7 +47,7 @@ export const systemRoutes: MobileAuthRoute = {
       ],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'Carriers Management',
-      screen: CarrierList,
+      screen: CarrierListScreen,
       isShowOnSidebar: true,
       title: 'Carriers',
       icon: 'truck',
@@ -62,7 +62,7 @@ export const systemRoutes: MobileAuthRoute = {
       ],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'Carrier Detail',
-      screen: CarrierDetails,
+      screen: CarrierDetailsScreen,
       isShowOnSidebar: false,
       title: 'Carrier Detail',
     },
@@ -72,7 +72,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'Customers Management',
-      screen: Customers,
+      screen: CustomersScreen,
       isShowOnSidebar: true,
       title: 'Customers',
       icon: 'users',
@@ -83,7 +83,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System Master Data',
-      screen: SystemMaster,
+      screen: SystemMasterScreen,
       isShowOnSidebar: true,
       title: 'System Master',
       icon: 'settings',
@@ -98,7 +98,7 @@ export const systemRoutes: MobileAuthRoute = {
       ],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System Users',
-      screen: SystemUserList,
+      screen: SystemUserListScreen,
       isShowOnSidebar: false,
       title: 'System Users',
     },
@@ -111,7 +111,7 @@ export const systemRoutes: MobileAuthRoute = {
       ],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System User Detail',
-      screen: SystemUserDetails,
+      screen: SystemUserDetailsScreen,
       isShowOnSidebar: false,
       title: 'User Detail',
     },
@@ -121,7 +121,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System Roles',
-      screen: SystemRoleList,
+      screen: SystemRoleListScreen,
       isShowOnSidebar: false,
       title: 'System Roles',
     },
@@ -131,7 +131,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System Role Detail',
-      screen: SystemRoleDetails,
+      screen: SystemRoleDetailsScreen,
       isShowOnSidebar: false,
       title: 'Role Detail',
     },
@@ -141,7 +141,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System Secrets',
-      screen: SystemDbSecretsList,
+      screen: SystemDbSecretsListScreen,
       isShowOnSidebar: true,
       title: 'Secrets',
       icon: 'key',
@@ -152,7 +152,7 @@ export const systemRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'System Secret Detail',
-      screen: SystemDbSecretDetails,
+      screen: SystemDbSecretDetailsScreen,
       isShowOnSidebar: false,
       title: 'Secret Detail',
     },

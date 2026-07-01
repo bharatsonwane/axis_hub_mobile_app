@@ -12,7 +12,7 @@ const metrics = [
   { label: 'Delivered today', value: '—' },
 ];
 
-export default function CarrierDashboard() {
+export default function CarrierDashboardScreen() {
   const { colors } = useTheme();
   const styles = createDashboardScreenStyles({ colors });
   const { tenantId } = usePortalContext();

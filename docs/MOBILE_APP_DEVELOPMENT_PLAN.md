@@ -294,7 +294,7 @@ axis_hub_mobile_app/
 | **Entry** | `index.js` imports `src/app/App.tsx` |
 | **No root `App.tsx`** | Remove scaffold `App.tsx` from project root after migration |
 | **Redux** | `src/redux/` — `store.ts`, `slices/`, `actions/` (mirror web layout) |
-| **Pages by portal** | `src/pages/` — mirrors web `frontend/src/pages/` (`System/`, `Carrier/`, `public/`) |
+| **Pages by portal** | `src/pages/` — mirrors web folder layout; mobile files/components use `*Screen` suffix |
 | **Shared UI** | `src/components/ui/` — theme-aware primitives |
 
 ### Full `src/` tree
@@ -334,12 +334,12 @@ src/
 │   ├── PortalSwitcher.tsx
 │   ├── buildPortalNavigator.tsx
 │   └── linking.ts
-├── pages/                          # Mirrors web frontend/src/pages/
-│   ├── public/login/               # LoginPage
-│   ├── public/Access/              # AccessDenied
-│   ├── common/                     # Shared placeholders, dashboard styles
-│   ├── System/                     # Dashboard, Carriers, SystemUsers, Roles, DbSecrets, …
-│   └── Carrier/                    # Dashobard, Settings, … (future modules)
+├── pages/                          # Mirrors web frontend/src/pages/ folder layout
+│   ├── public/login/LoginScreen.tsx
+│   ├── public/Access/AccessDeniedScreen.tsx
+│   ├── common/                     # ModulePlaceholderScreen, shared styles
+│   ├── System/Carriers/CarrierListScreen.tsx, CarrierDetailsScreen.tsx, …
+│   └── Carrier/Dashobard/CarrierDashboardScreen.tsx, Settings/ProfileSettingsScreen.tsx
 ├── components/
 │   ├── ui/                         # Themed Button, Input, Card, etc.
 │   └── layouts/
@@ -738,7 +738,7 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 **Objective:** Users can log in and stay authenticated.
 
 - [x] Port `AuthContextProvider` logic from web
-- [x] Login screen (email/password) — mirror `LoginPage.tsx`
+- [x] Login screen (email/password) — mirror `LoginScreen.tsx`
 - [x] `POST /api/auth/signin` integration
 - [x] Store JWT in Keychain/Keystore (not AsyncStorage alone)
 - [x] Session restore on app launch — `GET /api/auth/profile`
@@ -1263,7 +1263,7 @@ npm run ios    # or npm run android
 | Env config | `frontend/src/config/envConfig.ts` |
 | Redux store | `frontend/src/redux/store.ts` |
 | Socket manager | `frontend/src/realtime/socketManager.ts` |
-| Login page | `frontend/src/pages/public/login/LoginPage.tsx` |
+| Login page | `frontend/src/pages/public/login/LoginScreen.tsx` |
 | API docs | `frontend/docs/api-spec.md`, `frontend/docs/load-api.md` |
 | CRUD patterns | `frontend/docs/CRUD-IMPLEMENTATION-GUIDE-V2.md` |
 

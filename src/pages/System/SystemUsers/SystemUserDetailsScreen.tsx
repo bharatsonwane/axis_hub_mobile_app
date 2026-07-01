@@ -23,7 +23,7 @@ type RouteParams = {
   userId: number;
 };
 
-export default function SystemUserDetails() {
+export default function SystemUserDetailsScreen() {
   const { colors } = useTheme();
   const styles = createSystemDetailScreenStyles({ colors });
   const dispatch = useAppDispatch();

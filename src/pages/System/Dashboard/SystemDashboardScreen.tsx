@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useTheme } from '@/providers/ThemeProvider';
 import { showErrorToast } from '@/utils/toast';
 
-export default function SystemDashboard() {
+export default function SystemDashboardScreen() {
   const { colors } = useTheme();
   const styles = createDashboardScreenStyles({ colors });
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginPage from '@/pages/public/login/LoginPage';
+import LoginScreen from '@/pages/public/login/LoginScreen';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator<AuthStackParamList>();
 export default function AuthNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={LoginPage} />
+      <Stack.Screen name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );
 }

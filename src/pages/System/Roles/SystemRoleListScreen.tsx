@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useTheme } from '@/providers/ThemeProvider';
 import { showErrorToast } from '@/utils/toast';
 
-export default function SystemRoleList() {
+export default function SystemRoleListScreen() {
   const { colors } = useTheme();
   const styles = createSystemListScreenStyles({ colors });
   const dispatch = useAppDispatch();

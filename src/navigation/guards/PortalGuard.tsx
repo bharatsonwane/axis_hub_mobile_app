@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 import type { MobileAuthRoute } from '@/navigation/routes/types';
-import AccessDenied from '@/pages/public/Access/AccessDenied';
+import AccessDeniedScreen from '@/pages/public/Access/AccessDeniedScreen';
 import { useAuthorization } from '@/navigation/guards/useAuthorization';
 
 type PortalGuardProps = {
@@ -12,7 +12,7 @@ export default function PortalGuard({ route, children }: PortalGuardProps) {
   const authorized = useAuthorization(route);
 
   if (!authorized) {
-    return <AccessDenied />;
+    return <AccessDeniedScreen />;
   }
 
   return <>{children}</>;

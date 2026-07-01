@@ -6,7 +6,7 @@ type CreateLoginScreenStylesParams = ThemedStylesParams & {
   isLoading: boolean;
 };
 
-export function createLoginPageStyles({
+export function createLoginScreenStyles({
   colors,
   isLoading,
 }: CreateLoginScreenStylesParams) {

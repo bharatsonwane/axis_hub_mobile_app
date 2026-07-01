@@ -23,7 +23,7 @@ import { showErrorToast } from '@/utils/toast';
 
 const PAGE_SIZE = 20;
 
-export default function SystemDbSecretsList() {
+export default function SystemDbSecretsListScreen() {
   const { colors } = useTheme();
   const styles = createSystemListScreenStyles({ colors });
   const dispatch = useAppDispatch();

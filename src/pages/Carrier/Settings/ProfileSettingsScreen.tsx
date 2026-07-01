@@ -2,18 +2,18 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
 import { useAuth } from '@/contexts/AuthContextProvider';
-import { createProfileSettingsStyles } from '@/pages/Carrier/Settings/profileSettings.styles';
+import { createProfileSettingsScreenStyles } from '@/pages/Carrier/Settings/profileSettingsScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 import type { ThemePreference } from '@/theme/types';
 import { showSuccessToast } from '@/utils/toast';
 
 const themeOptions: ThemePreference[] = ['light', 'dark', 'system'];
 
-export default function ProfileSettings() {
+export default function ProfileSettingsScreen() {
   const { colors, theme, resolvedTheme, setTheme } = useTheme();
   const { loggedInUser, logout } = useAuth();
   const { styles, getThemeButtonStyle, getThemeButtonTextStyle } =
-    createProfileSettingsStyles({ colors });
+    createProfileSettingsScreenStyles({ colors });
 
   const handleLogout = () => {
     logout()

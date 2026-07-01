@@ -6,7 +6,7 @@ import {
 import type { MobileAuthRoute } from '@/navigation/routes/types';
 import { withPortalGuard } from '@/navigation/guards/PortalGuard';
 import PortalDrawerContent from '@/navigation/PortalDrawerContent';
-import ProfileSettings from '@/pages/Carrier/Settings/ProfileSettings';
+import ProfileSettingsScreen from '@/pages/Carrier/Settings/ProfileSettingsScreen';
 import PortalHeader from '@/components/layouts/PortalHeader';
 import { useAppSelector } from '@/redux/store';
 import {
@@ -71,7 +71,7 @@ export function buildPortalDrawerNavigator(portalRoute: MobileAuthRoute) {
         ))}
         <Drawer.Screen
           name="ProfileSettings"
-          component={ProfileSettings}
+          component={ProfileSettingsScreen}
           options={{
             title: 'Profile & Settings',
             drawerItemStyle: { display: 'none' },

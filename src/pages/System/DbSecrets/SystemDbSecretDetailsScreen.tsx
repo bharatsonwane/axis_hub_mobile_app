@@ -19,7 +19,7 @@ type RouteParams = {
   secretId: number;
 };
 
-export default function SystemDbSecretDetails() {
+export default function SystemDbSecretDetailsScreen() {
   const { colors } = useTheme();
   const styles = createSystemDetailScreenStyles({ colors });
   const dispatch = useAppDispatch();

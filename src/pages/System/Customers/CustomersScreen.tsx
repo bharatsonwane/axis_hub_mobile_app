@@ -4,7 +4,7 @@ import ScreenContainer from '@/components/layouts/ScreenContainer';
 import { createSystemListScreenStyles } from '@/pages/System/shared/listScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
-export default function Customers() {
+export default function CustomersScreen() {
   const { colors } = useTheme();
   const styles = createSystemListScreenStyles({ colors });
 

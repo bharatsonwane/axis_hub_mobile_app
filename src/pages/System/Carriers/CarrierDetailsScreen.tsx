@@ -21,7 +21,7 @@ type RouteParams = {
   carrierId: number;
 };
 
-export default function CarrierDetails() {
+export default function CarrierDetailsScreen() {
   const { colors } = useTheme();
   const styles = createSystemDetailScreenStyles({ colors });
   const dispatch = useAppDispatch();

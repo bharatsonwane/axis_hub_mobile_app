@@ -19,7 +19,7 @@ type RouteParams = {
   roleId: number;
 };
 
-export default function SystemRoleDetails() {
+export default function SystemRoleDetailsScreen() {
   const { colors } = useTheme();
   const styles = createSystemDetailScreenStyles({ colors });
   const dispatch = useAppDispatch();
