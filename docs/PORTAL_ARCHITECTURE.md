@@ -432,7 +432,7 @@ Portal tasks mirror items in the main plan. Mark `- [x]` here **when that portal
 | Group | Done |
 |-------|------|
 | Phase 0–1 (Foundation + Auth) | 8 / 8 |
-| Phase 2 (Portal shell) | 0 / 7 |
+| Phase 2 (Portal shell) | 7 / 7 |
 | Phase 3+ (Feature screens) | 0 / 3 |
 
 ---
@@ -450,13 +450,13 @@ Portal tasks mirror items in the main plan. Mark `- [x]` here **when that portal
 
 ### Phase 2 (Portal shell)
 
-- [ ] `src/navigation/buildPortalNavigator()` — generate stacks from config
-- [ ] `src/components/layouts/PortalShell.tsx` — header, drawer, theme-aware chrome
-- [ ] `src/navigation/PortalSwitcher.tsx` component
-- [ ] Per-portal drawer with permission-filtered items
-- [ ] `src/navigation/guards/PortalGuard.tsx` on all authenticated screens
-- [ ] Placeholder screens for all top-level portal modules
-- [ ] Tenant list fetch (`fetchTenants`) + `setCurrentTenant` sync
+- [x] `src/navigation/buildPortalNavigator()` — generate stacks from config
+- [x] `src/components/layouts/PortalShell.tsx` — header, drawer, theme-aware chrome
+- [x] `src/navigation/PortalSwitcher.tsx` component
+- [x] Per-portal drawer with permission-filtered items
+- [x] `src/navigation/guards/PortalGuard.tsx` on all authenticated screens
+- [x] Placeholder screens for all top-level portal modules
+- [x] Tenant list fetch (`fetchTenants`) + `setCurrentTenant` sync
 
 ### Phase 3+ (Feature screens)
 

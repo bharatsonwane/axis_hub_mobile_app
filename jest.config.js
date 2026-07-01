@@ -5,6 +5,6 @@ module.exports = {
   },
   setupFiles: ['./jest.setup.js'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@react-navigation|react-redux|@reduxjs|redux-persist|immer)/)',
+    'node_modules/(?!(react-native|@react-native|@react-navigation|react-redux|@reduxjs|redux-persist|immer|react-native-reanimated|react-native-toast-message)/)',
   ],
 };

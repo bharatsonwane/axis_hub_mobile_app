@@ -26,6 +26,7 @@ import { getDefaultPortalDestination } from '@/utils/navigation-helper';
 import { getAuthToken } from '@/utils/authToken';
 import { AUTH_LOGOUT_EVENT } from '@/utils/authEvents';
 import LoadingOverlay from '@/components/LoadingOverlay';
+import { SocketManager } from '@/realtime/socketManager';
 
 export let authContextValue = {
   loggedInUser: null as User | null,
@@ -133,6 +134,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       syncCurrentTenantFromUser(dispatch, userData);
       applyPortalDestination(userData);
       setLoggedInUser(userData);
+      await SocketManager.connect({ tenantId: userData.activeTenantId });
     } catch (err: unknown) {
       setLoggedInUser(null);
       setToken(null);
@@ -153,6 +155,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     setLoggedInUser(null);
     setToken(null);
     setError(null);
+    await SocketManager.disconnect();
     await dispatch(logoutUser());
   }, [dispatch]);
 
@@ -162,6 +165,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       () => {
         setLoggedInUser(null);
         setToken(null);
+        SocketManager.disconnect().catch(() => undefined);
       },
     );
 
@@ -207,6 +211,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         setLoggedInUser(result.user);
         setToken(result.token);
         setError(null);
+        await SocketManager.connect({ tenantId: result.user.activeTenantId });
         return result;
       } catch (err: unknown) {
         const errorMessage =

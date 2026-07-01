@@ -22,6 +22,50 @@ jest.mock('react-native-config', () => ({
   APP_NAME: 'Axis Hub',
 }));
 
+jest.mock('react-native-gesture-handler', () => ({
+  GestureHandlerRootView: ({ children }) => children,
+}));
+
+jest.mock('@react-navigation/drawer', () => {
+  const React = require('react');
+  const { View } = require('react-native');
+  const Navigator = ({ children }) => React.createElement(View, null, children);
+  const Screen = () => null;
+  return {
+    createDrawerNavigator: () => ({
+      Navigator,
+      Screen,
+    }),
+    DrawerContentScrollView: ({ children }) =>
+      React.createElement(View, null, children),
+    DrawerItem: () => null,
+  };
+});
+
 jest.mock('redux-persist/integration/react', () => ({
   PersistGate: ({ children }) => children,
+}));
+
+jest.mock('react-native-reanimated', () => {
+  const Reanimated = require('react-native-reanimated/mock');
+  Reanimated.default.call = () => {};
+  return Reanimated;
+});
+
+jest.mock('socket.io-client', () => ({
+  io: jest.fn(() => ({
+    connected: false,
+    connect: jest.fn(),
+    disconnect: jest.fn(),
+    on: jest.fn(),
+    off: jest.fn(),
+    auth: {},
+  })),
+}));
+
+jest.mock('react-native-toast-message', () => ({
+  __esModule: true,
+  default: {
+    show: jest.fn(),
+  },
 }));

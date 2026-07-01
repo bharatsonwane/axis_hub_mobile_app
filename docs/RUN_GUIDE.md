@@ -51,9 +51,24 @@ npm run lint
 1. Launch app → session restore reads JWT from Keychain → `GET /api/auth/profile`
 2. No token or invalid session → **Login** screen
 3. Sign in → token stored in Keychain → profile fetch → portal context set from `getDefaultPortalDestination`
-4. **Log out** from the home placeholder screen, or via 401 from any API call
+4. **Log out** from Profile & Settings (drawer footer or Carrier Settings), or via 401 from any API call
+
+## Portal shell (Phase 2)
+
+After login you land in the correct portal (System or Carrier) with:
+
+- **Drawer menu** — permission-filtered modules from `mobileAuthRoutes`
+- **Header** — tap portal title to open **Portal Switcher** (admin ↔ carrier, tenant list)
+- **Carrier dashboard** — placeholder KPI cards (live data in Phase 3+)
 
 Ensure `.env` `API_BASE_URL` points at a reachable backend before testing login.
+
+**Native rebuild required** after pulling Phase 2 (drawer + reanimated + worklets):
+
+```bash
+cd ios && pod install && cd ..
+npm run ios   # or npm run android
+```
 
 ## Troubleshooting
 
@@ -62,3 +77,4 @@ Ensure `.env` `API_BASE_URL` points at a reachable backend before testing login.
 | Env vars not updating | Rebuild native app (`npm run ios` / `android`) after `.env` changes |
 | iOS build fails after new native deps | `cd ios && pod install && cd ..` |
 | Metro cache issues | `npm start -- --reset-cache` |
+| `[Reanimated] Native part ... not initialized` | Rebuild native app after adding Reanimated (not just Metro). Run `cd ios && pod install && cd ..` then `npm run ios`. Ensure `index.js` imports `react-native-reanimated` before other app code. |

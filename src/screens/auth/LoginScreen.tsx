@@ -12,6 +12,7 @@ import {
 import { envConfig } from '@/config/envConfig';
 import { useAuth } from '@/contexts/AuthContextProvider';
 import { LoginSchema } from '@/schemaTypes/loginSchemaTypes';
+import { showSuccessToast } from '@/utils/toast';
 import { useTheme } from '@/providers/ThemeProvider';
 import { radius, spacing, typography } from '@/theme/tokens';
 
@@ -46,6 +47,7 @@ export default function LoginScreen() {
         email: result.data.email,
         password: result.data.password,
       });
+      showSuccessToast('Sign in successful');
     } catch {
       // Error state is set in AuthContextProvider
     }
@@ -70,10 +72,7 @@ export default function LoginScreen() {
     >
       <View style={styles.content}>
         <View
-          style={[
-            styles.brandCard,
-            { backgroundColor: colors.foreground },
-          ]}
+          style={[styles.brandCard, { backgroundColor: colors.foreground }]}
         >
           <Text style={[styles.brandTitle, { color: colors.background }]}>
             {envConfig.app.APP_NAME}

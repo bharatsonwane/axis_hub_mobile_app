@@ -696,13 +696,13 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 |-------|------|--------|------|
 | **0** | Foundation | Complete | 17 / 17 |
 | **1** | Authentication & Session | Complete | 11 / 12 |
-| **2** | Multi-Portal Shell | Not started | 0 / 10 |
+| **2** | Multi-Portal Shell | Complete | 10 / 10 |
 | **3** | Carrier: Load Orders | Not started | 0 / 6 |
 | **4** | Load Requests & Load Board | Not started | 0 / 4 |
 | **5** | System Portal & Driver Views | Not started | 0 / 7 |
 | **6** | Polish & Release | Not started | 0 / 7 |
 
-**Current focus:** Phase 2 — Multi-Portal Shell.
+**Current focus:** Phase 3 — Carrier Portal: Load Orders.
 
 ---
 
@@ -758,16 +758,16 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 
 **Objective:** Authenticated users enter the correct portal with switchable context — mirroring web sidebar + navbar.
 
-- [ ] `SystemPortalNavigator`, `CarrierPortalNavigator`, `CustomerPortalNavigator` (customer: placeholder)
-- [ ] `buildPortalNavigator()` — generate stacks from `mobileAuthRoutes`
-- [ ] `PortalSwitcher` — Admin ↔ Carrier switch, tenant dropdown (mirror `navbar.tsx`)
-- [ ] Per-portal drawer/menu from `isShowOnSidebar` routes (mirror `sidebar.tsx`)
-- [ ] `PortalGuard` on all authenticated screens
-- [ ] Placeholder screens for each portal's top-level modules
-- [ ] Carrier dashboard screen — key metrics
-- [ ] Profile / settings screen (user info, **theme selector: Light / Dark / System**, logout)
-- [ ] Toast notifications for API errors/success
-- [ ] Connect Socket.IO on auth (port `socketManager.ts` patterns)
+- [x] `SystemPortalNavigator`, `CarrierPortalNavigator`, `CustomerPortalNavigator` (customer: placeholder)
+- [x] `buildPortalNavigator()` — generate stacks from `mobileAuthRoutes`
+- [x] `PortalSwitcher` — Admin ↔ Carrier switch, tenant dropdown (mirror `navbar.tsx`)
+- [x] Per-portal drawer/menu from `isShowOnSidebar` routes (mirror `sidebar.tsx`)
+- [x] `PortalGuard` on all authenticated screens
+- [x] Placeholder screens for each portal's top-level modules
+- [x] Carrier dashboard screen — key metrics
+- [x] Profile / settings screen (user info, **theme selector: Light / Dark / System**, logout)
+- [x] Toast notifications for API errors/success
+- [x] Connect Socket.IO on auth (port `socketManager.ts` patterns)
 
 **Deliverable:** User sees correct portal, can switch portals/tenants (if permitted), and navigate module menu.
 
@@ -878,7 +878,7 @@ Pick next unchecked item
 
 ### Starting point
 
-**Next task:** Phase 2 → `SystemPortalNavigator`, `CarrierPortalNavigator`, `CustomerPortalNavigator`
+**Next task:** Phase 3 → Order list screens by status (Inbox, Planning, Dispatch, Delivered)
 
 ---
 
@@ -1214,7 +1214,7 @@ Use these as a **reference catalog**, not a port checklist.
 
 ## Next Steps
 
-1. Open [Phase 2](#phase-2--multi-portal-shell-week-46) and start the **first unchecked** item.
+1. Open [Phase 3](#phase-3--carrier-portal-load-orders-week-610) and start the **first unchecked** item.
 2. After each task: verify → mark `- [x]` → update [Phase progress](#phase-progress).
-3. Phase 1 is complete (11/12 — optional Google OAuth deferred).
+3. Phase 2 is complete (10/10).
 4. Portal-specific work: also track items in [PORTAL_ARCHITECTURE.md](./PORTAL_ARCHITECTURE.md).

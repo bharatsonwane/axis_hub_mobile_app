@@ -75,6 +75,18 @@ export const filterRoutesByAuthorization = ({
         : undefined,
     }));
 
+export const getSidebarRoutesForPortal = ({
+  portalRoute,
+  user,
+}: {
+  portalRoute: MobileAuthRoute;
+  user?: Pick<User, 'systemPermissions' | 'tenantPermissions'> | null;
+}): MobileAuthRoute[] => {
+  const childRoutes = portalRoute.childRoutes ?? [];
+  const allowed = filterRoutesByAuthorization({ routes: childRoutes, user });
+  return allowed.filter(route => route.isShowOnSidebar);
+};
+
 export const getDefaultRoute = (routes: MobileAuthRoute[]): string => {
   if (routes.length === 0) {
     return '/login';
