@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
 import { useAuth } from '@/contexts/AuthContextProvider';
-import { createProfileSettingsScreenStyles } from '@/screens/Carrier/Settings/profileSettingsScreen.styles';
+import { createProfileSettingsStyles } from '@/screens/Carrier/Settings/profileSettings.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 import type { ThemePreference } from '@/theme/types';
 import { showSuccessToast } from '@/utils/toast';
@@ -13,7 +13,7 @@ export default function ProfileSettingsScreen() {
   const { colors, theme, resolvedTheme, setTheme } = useTheme();
   const { loggedInUser, logout } = useAuth();
   const { styles, getThemeButtonStyle, getThemeButtonTextStyle } =
-    createProfileSettingsScreenStyles({ colors });
+    createProfileSettingsStyles({ colors });
 
   const handleLogout = () => {
     logout()

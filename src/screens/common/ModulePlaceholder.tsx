@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
-import { createModulePlaceholderScreenStyles } from '@/screens/common/modulePlaceholderScreen.styles';
+import { createModulePlaceholderStyles } from '@/screens/common/modulePlaceholder.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
 type ModulePlaceholderScreenProps = {
@@ -14,7 +14,7 @@ export default function ModulePlaceholderScreen({
   description,
 }: ModulePlaceholderScreenProps) {
   const { colors } = useTheme();
-  const styles = createModulePlaceholderScreenStyles({ colors });
+  const styles = createModulePlaceholderStyles({ colors });
 
   return (
     <ScreenContainer>

@@ -266,7 +266,7 @@ axis_hub_mobile_app/
 └── src/                        # ★ All application code here
     ├── app/
     ├── navigation/
-    ├── pages/
+    ├── screens/
     ├── components/
     ├── contexts/
     ├── providers/
@@ -294,7 +294,7 @@ axis_hub_mobile_app/
 | **Entry** | `index.js` imports `src/app/App.tsx` |
 | **No root `App.tsx`** | Remove scaffold `App.tsx` from project root after migration |
 | **Redux** | `src/redux/` — `store.ts`, `slices/`, `actions/` (mirror web layout) |
-| **Pages by portal** | `src/pages/` — mirrors web folder layout; mobile files/components use `*Screen` suffix |
+| **Screens by portal** | `src/screens/` — mirrors web folder layout; filenames match web (no `Screen` suffix) |
 | **Shared UI** | `src/components/ui/` — theme-aware primitives |
 
 ### Full `src/` tree
@@ -334,12 +334,12 @@ src/
 │   ├── PortalSwitcher.tsx
 │   ├── buildPortalNavigator.tsx
 │   └── linking.ts
-├── pages/                          # Mirrors web frontend/src/pages/ folder layout
-│   ├── public/login/LoginScreen.tsx
-│   ├── public/Access/AccessDeniedScreen.tsx
-│   ├── common/                     # ModulePlaceholderScreen, shared styles
-│   ├── System/Carriers/CarrierListScreen.tsx, CarrierDetailsScreen.tsx, …
-│   └── Carrier/Dashobard/CarrierDashboardScreen.tsx, Settings/ProfileSettingsScreen.tsx
+├── screens/                        # Mirrors web frontend/src/pages/ folder layout
+│   ├── public/login/LoginPage.tsx
+│   ├── public/Access/AccessDenied.tsx
+│   ├── common/ModulePlaceholder.tsx, dashboard.styles.ts
+│   ├── System/Carriers/CarrierList.tsx, CarrierDetails.tsx, …
+│   └── Carrier/Dashobard/carrier-dashboard.tsx, Settings/ProfileSettings.tsx
 ├── components/
 │   ├── ui/                         # Themed Button, Input, Card, etc.
 │   └── layouts/

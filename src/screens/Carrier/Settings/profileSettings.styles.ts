@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import type { ThemedStylesParams } from '@/theme/createThemedStyles';
 import { radius, spacing, typography } from '@/theme/tokens';
 
-export function createProfileSettingsScreenStyles({ colors }: ThemedStylesParams) {
+export function createProfileSettingsStyles({ colors }: ThemedStylesParams) {
   const styles = StyleSheet.create({
     card: {
       borderWidth: 1,

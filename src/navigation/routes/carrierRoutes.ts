@@ -1,5 +1,5 @@
-import CarrierDashboardScreen from '@/screens/Carrier/Dashobard/CarrierDashboardScreen';
-import ProfileSettingsScreen from '@/screens/Carrier/Settings/ProfileSettingsScreen';
+import CarrierDashboardScreen from '@/screens/Carrier/Dashobard/carrier-dashboard';
+import ProfileSettingsScreen from '@/screens/Carrier/Settings/ProfileSettings';
 import { createPlaceholderScreen } from '@/navigation/createPlaceholderScreen';
 import {
   systemPermissionKeys,

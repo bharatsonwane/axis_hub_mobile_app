@@ -138,7 +138,7 @@ All portal-related code lives under **`axis_hub_mobile_app/src/`**:
 | Redux store | `src/redux/store.ts`, `src/redux/slices/`, `src/redux/actions/` |
 | Portal switcher UI | `src/navigation/PortalSwitcher.tsx` |
 | Portal shell layout | `src/components/layouts/PortalShell.tsx` |
-| Pages | `src/pages/` — mirrors web `frontend/src/pages/` (`System/`, `Carrier/`, `public/`) |
+| Screens | `src/screens/` — mirrors web `frontend/src/pages/` layout (filenames without `Screen` suffix) |
 | Theme (light/dark) | `src/providers/ThemeProvider/`, `src/theme/` |
 
 Import alias: `@/` → `src/` (e.g. `@/navigation/routes`).

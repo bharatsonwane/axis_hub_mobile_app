@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
-import { createAccessDeniedScreenStyles } from '@/screens/public/Access/accessDeniedScreen.styles';
+import { createAccessDeniedStyles } from '@/screens/public/Access/accessDenied.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
 export default function AccessDeniedScreen() {
   const { colors } = useTheme();
-  const styles = createAccessDeniedScreenStyles({ colors });
+  const styles = createAccessDeniedStyles({ colors });
 
   return (
     <ScreenContainer>

@@ -6,7 +6,7 @@ import {
 import type { MobileAuthRoute } from '@/navigation/routes/types';
 import { withPortalGuard } from '@/navigation/guards/PortalGuard';
 import PortalDrawerContent from '@/navigation/PortalDrawerContent';
-import ProfileSettingsScreen from '@/screens/Carrier/Settings/ProfileSettingsScreen';
+import ProfileSettingsScreen from '@/screens/Carrier/Settings/ProfileSettings';
 import PortalHeader from '@/components/layouts/PortalHeader';
 import { useAppSelector } from '@/redux/store';
 import {

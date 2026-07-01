@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 import type { ThemedStylesParams } from '@/theme/createThemedStyles';
 import { radius, spacing, typography } from '@/theme/tokens';
 
-export function createAccessDeniedScreenStyles({ colors }: ThemedStylesParams) {
+export function createModulePlaceholderStyles({
+  colors,
+}: ThemedStylesParams) {
   return StyleSheet.create({
     card: {
       borderWidth: 1,
@@ -19,6 +21,11 @@ export function createAccessDeniedScreenStyles({ colors }: ThemedStylesParams) {
     },
     description: {
       fontSize: typography.body,
+      color: colors.mutedForeground,
+    },
+    hint: {
+      fontSize: typography.caption,
+      marginTop: spacing.sm,
       color: colors.mutedForeground,
     },
   });

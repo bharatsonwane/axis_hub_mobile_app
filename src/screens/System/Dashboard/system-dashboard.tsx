@@ -12,14 +12,14 @@ import {
   selectSystemDashboardLoading,
   selectSystemDashboardStats,
 } from '@/redux/slices/systemCarrierSlice';
-import { createDashboardScreenStyles } from '@/screens/common/dashboardScreen.styles';
+import { createDashboardStyles } from '@/screens/common/dashboard.styles';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { useTheme } from '@/providers/ThemeProvider';
 import { showErrorToast } from '@/utils/toast';
 
 export default function SystemDashboardScreen() {
   const { colors } = useTheme();
-  const styles = createDashboardScreenStyles({ colors });
+  const styles = createDashboardStyles({ colors });
   const dispatch = useAppDispatch();
   const stats = useAppSelector(selectSystemDashboardStats);
   const isLoading = useAppSelector(selectSystemDashboardLoading);

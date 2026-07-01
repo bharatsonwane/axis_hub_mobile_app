@@ -2,30 +2,37 @@ import { StyleSheet } from 'react-native';
 import type { ThemedStylesParams } from '@/theme/createThemedStyles';
 import { radius, spacing, typography } from '@/theme/tokens';
 
-export function createModulePlaceholderScreenStyles({
-  colors,
-}: ThemedStylesParams) {
+export function createDashboardStyles({ colors }: ThemedStylesParams) {
   return StyleSheet.create({
-    card: {
+    heading: {
+      fontSize: typography.title,
+      fontWeight: '700',
+      marginBottom: spacing.xs,
+      color: colors.foreground,
+    },
+    subheading: {
+      fontSize: typography.body,
+      marginBottom: spacing.lg,
+      color: colors.mutedForeground,
+    },
+    grid: {
+      gap: spacing.md,
+    },
+    metricCard: {
       borderWidth: 1,
       borderRadius: radius.lg,
       padding: spacing.lg,
-      gap: spacing.sm,
+      gap: spacing.xs,
       backgroundColor: colors.card,
       borderColor: colors.border,
     },
-    title: {
-      fontSize: typography.title,
+    metricValue: {
+      fontSize: 28,
       fontWeight: '700',
       color: colors.foreground,
     },
-    description: {
-      fontSize: typography.body,
-      color: colors.mutedForeground,
-    },
-    hint: {
+    metricLabel: {
       fontSize: typography.caption,
-      marginTop: spacing.sm,
       color: colors.mutedForeground,
     },
   });
