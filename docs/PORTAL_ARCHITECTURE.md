@@ -87,7 +87,7 @@ interface AuthRoute {
 - **Icon:** Shield
 - **Top-level modules:** Dashboard, Carriers, Customers (system-level), System Master, System Secrets
 - **Permissions:** `allowedSystemPermissions` (system user permissions)
-- **Mobile priority:** Phase 3+ — read-focused admin views; full CRUD remains web-first
+- **Mobile priority:** Phase 3 — read-focused admin feature screens; full CRUD remains web-first
 
 ### 2. Carrier Portal (Tenant)
 
@@ -97,14 +97,14 @@ interface AuthRoute {
 - **Scoped by:** `tenantId` (from `:carrierId` URL segment)
 - **Top-level modules:** Dashboard, Load Requests, Orders, Brokerage, Master, Materials, Fuel, FSC, Billing, Onboarding, Settings
 - **Permissions:** Primarily `allowedTenantPermissions`; system users with `ANY` can access all
-- **Mobile priority:** Phase 2–3 — primary operational portal
+- **Mobile priority:** Phase 4 — primary operational feature screens (shell from Phase 2)
 
 ### 3. Customer Portal
 
 - **Web root:** `/customers/:customerId` (defined in `pathnameContext.ts`)
 - **Status on web:** Route tree **not yet in `authRoutes`** — infrastructure only
 - **Scoped by:** `customerId`
-- **Mobile priority:** Phase 5+ — scaffold portal shell when web routes land; implement screens in parallel with web
+- **Mobile priority:** Phase 5 — feature screens TBD when web routes land (shell from Phase 2)
 
 ---
 
@@ -433,7 +433,9 @@ Portal tasks mirror items in the main plan. Mark `- [x]` here **when that portal
 |-------|------|
 | Phase 0–1 (Foundation + Auth) | 8 / 8 |
 | Phase 2 (Portal shell) | 7 / 7 |
-| Phase 3+ (Feature screens) | 0 / 3 |
+| Phase 3 (System portal features) | 0 / 13 |
+| Phase 4 (Carrier portal features) | 0 / 15 |
+| Phase 5 (Customer portal features) | TBD |
 
 ---
 
@@ -458,11 +460,26 @@ Portal tasks mirror items in the main plan. Mark `- [x]` here **when that portal
 - [x] Placeholder screens for all top-level portal modules
 - [x] Tenant list fetch (`fetchTenants`) + `setCurrentTenant` sync
 
-### Phase 3+ (Feature screens)
+### Phase 3 — System portal feature screens
 
-- [ ] Implement screens per portal module priority (see main plan)
-- [ ] Customer portal shell when web adds `authRoutes` entry
-- [ ] Deep linking config
+- [ ] Phase 3.1 — System dashboard (live KPIs)
+- [ ] Phase 3.2 — System carriers (list, detail, open carrier portal)
+- [ ] Phase 3.3 — System customers (list, detail)
+- [ ] Phase 3.4 — System master (users, roles)
+- [ ] Phase 3.5 — System secrets (read-only metadata)
+- [ ] Deep linking config (system routes)
+
+### Phase 4 — Carrier portal feature screens
+
+- [ ] Phase 4.1 — Load orders (lists, detail, status updates, realtime)
+- [ ] Phase 4.2 — Load requests & load board
+- [ ] Phase 4.3 — Billing, settlement & documents
+- [ ] Phase 4.4 — Onboarding & settings extensions
+- [ ] Deep linking config (carrier routes)
+
+### Phase 5 — Customer portal feature screens
+
+- [ ] Details TBD when web `authRoutes` customer tree lands
 
 ---
 
@@ -474,35 +491,33 @@ Synced with `frontend/src/routes/AppRoutes.tsx` (`authRoutes`). Mobile implement
 
 | Module | Web path | Mobile phase |
 |--------|----------|--------------|
-| Dashboard | `/system/dashboard` | Phase 3 |
-| Carriers | `/system/carriers/*` | Phase 4 |
-| Customers (system) | `/system/customers/*` | Phase 5 |
-| System Master | `/system/master/*` (users, roles) | Phase 5 |
-| System Secrets | `/system/secrets` | Phase 6 |
+| Dashboard | `/system/dashboard` | Phase 3.1 |
+| Carriers | `/system/carriers/*` | Phase 3.2 |
+| Customers (system) | `/system/customers/*` | Phase 3.3 |
+| System Master | `/system/master/*` (users, roles) | Phase 3.4 |
+| System Secrets | `/system/secrets` | Phase 3.5 |
 
 ### Carrier Portal (`/carriers/:carrierId`)
 
 | Module | Web path | Mobile phase |
 |--------|----------|--------------|
-| Dashboard | `.../dashboard` | Phase 2 |
-| Load Requests | `.../load-requests` | Phase 3 |
-| Orders | `.../load-orders/*` | Phase 3 |
-| Brokerage | `.../brokerage/*` | Phase 4 |
-| Master | `.../master/*` | Phase 5 |
-| Materials | `.../materials/*` | Phase 6 |
-| Fuel | `.../fuel/*` | Phase 6 |
-| FSC | `.../fsc/*` | Phase 6 |
-| Billing | `.../billing/*` | Phase 4–5 |
-| Onboarding | `.../onboarding` | Phase 5 |
-| Settings | `.../settings` | Phase 2 |
+| Dashboard | `.../dashboard` | Phase 2 (shell) |
+| Load Requests | `.../load-requests` | Phase 4.2 |
+| Orders | `.../load-orders/*` | Phase 4.1 |
+| Brokerage | `.../brokerage/*` | Phase 4.2 |
+| Master | `.../master/*` | Phase 6+ |
+| Materials | `.../materials/*` | Phase 6+ |
+| Fuel | `.../fuel/*` | Phase 6+ |
+| FSC | `.../fsc/*` | Phase 6+ |
+| Billing | `.../billing/*` | Phase 4.3 |
+| Onboarding | `.../onboarding` | Phase 4.4 |
+| Settings | `.../settings` | Phase 2 (profile/theme) |
 
 ### Customer Portal (`/customers/:customerId`) — planned
 
 | Module | Web path | Mobile phase |
 |--------|----------|--------------|
-| Portal shell | `/customers/:customerId` | When web routes exist |
-| Dashboard | `.../dashboard` | TBD |
-| Orders | `.../orders` | TBD |
+| Feature screens | `/customers/:customerId/*` | Phase 5 (details TBD) |
 
 ---
 
@@ -513,3 +528,4 @@ Synced with `frontend/src/routes/AppRoutes.tsx` (`authRoutes`). Mobile implement
 | 2026-07-01 | 1.0 | Initial multi-portal architecture |
 | 2026-07-01 | 1.2 | `src/` paths; theming; `src/redux/` |
 | 2026-07-01 | 1.3 | Step-by-step workflow; checklist progress tables |
+| 2026-07-01 | 1.4 | Restructured Phases 3–5: System (3), Carrier (4), Customer (5) |

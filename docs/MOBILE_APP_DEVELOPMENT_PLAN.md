@@ -39,7 +39,7 @@ This document outlines the strategy, architecture, and phased roadmap for buildi
 
 The Axis Hub web application is a large, multi-portal logistics platform (System Admin, Carrier/Tenant, and planned Customer portals) built with React 19, Redux Toolkit, and a REST + Socket.IO backend. The mobile app (`axis_hub_mobile_app`) is currently a **fresh React Native 0.85.3 scaffold** with no navigation, API integration, or shared code.
 
-**Recommended approach:** Build **one mobile app with multiple portals** (System, Carrier/Tenant, Customer) — mirroring the web's `authRoutes` model in `AppRoutes.tsx`. Prioritize high-value screens per portal (carrier ops first) rather than a 1:1 port of all ~650 web pages. Reuse API contracts, Zod schemas, permission logic, and route metadata from the web app.
+**Recommended approach:** Build **one mobile app with multiple portals** (System, Carrier/Tenant, Customer) — mirroring the web's `authRoutes` model in `AppRoutes.tsx`. Roll out feature screens **portal by portal** (System → Carrier → Customer) rather than a 1:1 port of all ~650 web pages. Reuse API contracts, Zod schemas, permission logic, and route metadata from the web app.
 
 **Portal architecture detail:** See [PORTAL_ARCHITECTURE.md](./PORTAL_ARCHITECTURE.md).
 
@@ -655,34 +655,34 @@ All three portals live in **one mobile app**. Screens roll out incrementally; po
 | Web portal | `PortalContext` | Mobile navigator | Initial scope |
 |------------|-----------------|------------------|---------------|
 | `/login` | — | `AuthStack` | Phase 1 |
-| `/system/*` | `system` | `SystemPortalNavigator` | Phase 3+ (dashboard, carriers list) |
-| `/carriers/:carrierId/*` | `carriers` | `CarrierPortalNavigator` | Phase 2–3 (primary) |
-| `/customers/:customerId/*` | `customers` | `CustomerPortalNavigator` | Phase 5+ (shell when web routes land) |
+| `/system/*` | `system` | `SystemPortalNavigator` | Phase 3 (feature screens) |
+| `/carriers/:carrierId/*` | `carriers` | `CarrierPortalNavigator` | Phase 4 (feature screens) |
+| `/customers/:customerId/*` | `customers` | `CustomerPortalNavigator` | Phase 5 (details TBD) |
 
 ### System portal modules (web reference)
 
 | Module | Web path | Mobile phase |
 |--------|----------|--------------|
-| Dashboard | `/system/dashboard` | Phase 3 |
-| Carriers | `/system/carriers/*` | Phase 4 |
-| Customers | `/system/customers/*` | Phase 5 |
-| System Master | `/system/master/*` | Phase 5 |
-| System Secrets | `/system/secrets` | Phase 6 |
+| Dashboard | `/system/dashboard` | Phase 3.1 |
+| Carriers | `/system/carriers/*` | Phase 3.2 |
+| Customers (system) | `/system/customers/*` | Phase 3.3 |
+| System Master | `/system/master/*` | Phase 3.4 |
+| System Secrets | `/system/secrets` | Phase 3.5 |
 
 ### Carrier portal modules (web reference)
 
 | Web module | Web path pattern | Mobile v1 | Mobile v2+ |
 |------------|------------------|-----------|------------|
 | Dashboard | `.../dashboard` | Summary cards, KPIs | Charts, widgets |
-| Load Orders | `.../load-orders` | Inbox, Dispatch, Delivered lists + detail | Planning, Complete, History |
-| Load Requests | `.../load-requests` | List + detail (read) | Create/edit |
-| Brokerage / Load Board | `.../brokerage` | Inbox list | Full board workflow |
-| Billing / Invoicing | `.../billing` | — | Invoice status lists |
-| Settlement | `.../billing/settlement` | Driver settlement view | O/O settlement |
-| Onboarding | `.../onboarding` | Driver task list | Document upload |
-| Master (Users, Assets, etc.) | `.../master/*` | — | Selective read-only lookups |
-| Fuel, FSC, Materials | `.../fuel`, `.../fsc`, `.../materials` | — | As needed |
-| Settings | `.../settings` | Profile, logout, theme | Full settings |
+| Load Orders | `.../load-orders` | Phase 4.1 — Inbox, Dispatch, Delivered lists + detail | Planning, Complete, History |
+| Load Requests | `.../load-requests` | Phase 4.2 — List + detail (read) | Create/edit |
+| Brokerage / Load Board | `.../brokerage` | Phase 4.2 — Inbox list | Full board workflow |
+| Billing / Invoicing | `.../billing` | Phase 4.3 — Invoice status lists | Full billing |
+| Settlement | `.../billing/settlement` | Phase 4.3 — Driver settlement view | O/O settlement |
+| Onboarding | `.../onboarding` | Phase 4.4 — Driver task list | Document upload |
+| Master (Users, Assets, etc.) | `.../master/*` | — | Phase 6+ selective read-only lookups |
+| Fuel, FSC, Materials | `.../fuel`, `.../fsc`, `.../materials` | — | Phase 6+ as needed |
+| Settings | `.../settings` | Profile, logout, theme (Phase 2) | Full settings |
 
 ---
 
@@ -697,12 +697,12 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 | **0** | Foundation | Complete | 17 / 17 |
 | **1** | Authentication & Session | Complete | 11 / 12 |
 | **2** | Multi-Portal Shell | Complete | 10 / 10 |
-| **3** | Carrier: Load Orders | Not started | 0 / 6 |
-| **4** | Load Requests & Load Board | Not started | 0 / 4 |
-| **5** | System Portal & Driver Views | Not started | 0 / 7 |
+| **3** | System Portal Feature Screens | Not started | 0 / 13 |
+| **4** | Carrier Portal Feature Screens | Not started | 0 / 15 |
+| **5** | Customer Portal Feature Screens | Not started | 0 / 0 |
 | **6** | Polish & Release | Not started | 0 / 7 |
 
-**Current focus:** Phase 3 — Carrier Portal: Load Orders.
+**Current focus:** Phase 3 — System Portal Feature Screens (start with Phase 3.1 Dashboard).
 
 ---
 
@@ -773,9 +773,73 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 
 ---
 
-### Phase 3 — Carrier Portal: Load Orders (Week 6–10)
+### Phase 3 — System Portal Feature Screens (Week 6–12)
 
-**Objective:** Primary operational workflow for dispatchers.
+**Objective:** System admins can monitor and manage platform-level data from mobile. Read-focused views first; full CRUD remains web-first unless noted.
+
+Phase 3 is split into sub-phases by system module. Complete each sub-phase before moving to the next unless a dependency note says otherwise.
+
+#### Phase 3.1 — System Dashboard
+
+- [ ] Replace placeholder with live KPI cards (read-only metrics aligned with web `/system/dashboard`)
+- [ ] Pull-to-refresh on dashboard data
+- [ ] Loading, empty, and error states with toasts
+
+**Reference web paths:**
+- `frontend/src/pages/System/Dashboard/` (or equivalent system dashboard pages)
+
+**Deliverable:** System user sees real admin dashboard KPIs on mobile.
+
+#### Phase 3.2 — System Carriers
+
+- [ ] Carrier list (paginated, pull-to-refresh, search)
+- [ ] Carrier detail summary screen (read-only key fields)
+- [ ] Navigate from carrier detail → open Carrier portal for that tenant (`switchToCarrierPortal`)
+
+**Reference web paths:**
+- `frontend/src/pages/System/Carrier/`
+- Related Redux slices/actions for system carrier list
+
+**Deliverable:** System user can browse carriers and jump into a carrier tenant portal.
+
+#### Phase 3.3 — System Customers
+
+- [ ] System-level customer list (paginated, read-first)
+- [ ] Customer detail summary (read-only)
+
+**Reference web paths:**
+- `frontend/src/pages/System/Customer/` (or equivalent)
+
+**Deliverable:** System user can browse platform customers from mobile.
+
+#### Phase 3.4 — System Master
+
+- [ ] System users list + detail (read-first)
+- [ ] System roles list (read-first)
+- [ ] Permission-aware navigation (match web `allowedSystemPermissions`)
+
+**Reference web paths:**
+- `frontend/src/pages/System/Master/`
+
+**Deliverable:** System admins can view core master data on mobile.
+
+#### Phase 3.5 — System Secrets
+
+- [ ] System secrets list (read-only; no secret values in logs)
+- [ ] Secret detail / metadata view (read-only; editing remains web-first)
+
+**Reference web paths:**
+- `frontend/src/pages/System/Secrets/` (or equivalent)
+
+**Deliverable:** Authorized system users can audit secrets metadata from mobile.
+
+---
+
+### Phase 4 — Carrier Portal Feature Screens (Week 12–20)
+
+**Objective:** Primary operational workflows for carrier staff (dispatchers, drivers, back-office). Split by module; shell and placeholders exist from Phase 2.
+
+#### Phase 4.1 — Load Orders
 
 - [ ] Order list screens by status: Inbox, Planning, Dispatch, Delivered
 - [ ] Paginated lists with pull-to-refresh (use `x-total-count` headers like web)
@@ -791,9 +855,7 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 
 **Deliverable:** Dispatchers manage load orders from mobile.
 
----
-
-### Phase 4 — Carrier: Load Requests & Load Board (Week 10–14)
+#### Phase 4.2 — Load Requests & Load Board
 
 - [ ] Load requests list + detail (read-first)
 - [ ] Brokerage load board inbox
@@ -802,25 +864,30 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 
 **Deliverable:** Extended ops coverage for brokerage workflows.
 
----
+#### Phase 4.3 — Billing, Settlement & Documents
 
-### Phase 5 — System Portal & Driver Views (Week 14–18)
-
-**System portal (initial):**
-- [ ] System dashboard (read-only KPIs)
-- [ ] Carrier list + carrier detail summary
-- [ ] Navigate from system carrier detail → open Carrier portal for that tenant
-
-**Carrier portal (continued):**
-- [ ] Driver onboarding task list
-- [ ] Settlement summary screens (driver / O-O)
+- [ ] Invoice / billing status lists (read-first)
+- [ ] Settlement summary screens (driver / O/O)
 - [ ] Document viewing (PDF in WebView)
 
-**Customer portal (shell):**
-- [ ] `CustomerPortalNavigator` stub when web `authRoutes` entry exists
-- [ ] Placeholder dashboard
+**Deliverable:** Back-office and driver settlement workflows on mobile.
 
-**Deliverable:** System admins can monitor carriers on mobile; drivers have settlement/onboarding access.
+#### Phase 4.4 — Onboarding & Settings Extensions
+
+- [ ] Driver onboarding task list
+- [ ] Extend carrier settings beyond profile/theme where needed
+
+**Deliverable:** Drivers and ops staff can use onboarding flows from mobile.
+
+---
+
+### Phase 5 — Customer Portal Feature Screens
+
+**Objective:** Customer-facing screens in the mobile app.
+
+Details to be added when web customer routes land in `authRoutes`. Portal shell and placeholder navigator exist from Phase 2.
+
+**Deliverable:** TBD.
 
 ---
 
@@ -878,7 +945,7 @@ Pick next unchecked item
 
 ### Starting point
 
-**Next task:** Phase 3 → Order list screens by status (Inbox, Planning, Dispatch, Delivered)
+**Next task:** Phase 3.1 → Replace system dashboard placeholder with live KPI cards
 
 ---
 
@@ -889,15 +956,18 @@ Pick next unchecked item
 | P0 | Auth & session | — | Blocker | 1 |
 | P0 | Multi-portal shell | All | Blocker | 0–2 |
 | P0 | Portal switcher + tenant select | System + Carrier | Blocker | 2 |
-| P1 | Load Orders | Carrier | High | 3 |
-| P1 | Dashboard | Carrier | High | 2–3 |
-| P2 | Load Requests | Carrier | Medium | 4 |
-| P2 | Load Board / Brokerage | Carrier | Medium | 4 |
-| P3 | System dashboard + carriers | System | Medium | 5 |
-| P3 | Settlement views | Carrier | Medium | 5 |
-| P3 | Driver onboarding | Carrier | Medium | 5 |
-| P4 | Customer portal shell | Customer | Low (until web ships) | 5+ |
-| P4 | Invoicing status | Carrier | Low | 6+ |
+| P1 | System dashboard | System | High | 3.1 |
+| P1 | System carriers list + detail | System | High | 3.2 |
+| P1 | Load Orders | Carrier | High | 4.1 |
+| P1 | Dashboard | Carrier | High | 2 (shell), 4+ enhancements |
+| P2 | Load Requests | Carrier | Medium | 4.2 |
+| P2 | Load Board / Brokerage | Carrier | Medium | 4.2 |
+| P2 | System customers + master | System | Medium | 3.3–3.4 |
+| P3 | System secrets | System | Medium | 3.5 |
+| P3 | Settlement views | Carrier | Medium | 4.3 |
+| P3 | Driver onboarding | Carrier | Medium | 4.4 |
+| P4 | Customer portal screens | Customer | Low (until web ships) | 5 |
+| P4 | Invoicing status | Carrier | Low | 4.3 |
 | P4 | Master data CRUD | Carrier | Low | 6+ |
 
 ---
@@ -1056,15 +1126,15 @@ Mirror `frontend/src/components/Layouts/navbar.tsx`:
 
 ### Offline (phased)
 
-- **Phase 1–3:** Online-only with clear offline error messaging
-- **Phase 4+:** Cache last-viewed order details in AsyncStorage for read-only offline
+- **Phase 1–4:** Online-only with clear offline error messaging
+- **Phase 5+:** Cache last-viewed entity details in AsyncStorage for read-only offline
 - **Future:** Queue mutations for sync when connectivity returns (high effort)
 
 ### Push notifications
 
 - Firebase Cloud Messaging (FCM) + APNs
 - Backend integration for event-driven pushes (order assigned, status change)
-- Not required for Phase 1–3; plan infrastructure in Phase 5
+- Not required for Phases 1–4; plan infrastructure in Phase 6
 
 ---
 
@@ -1151,7 +1221,14 @@ npm run ios    # or npm run android
 - Carrier user with multiple tenants can switch tenant
 - Portal drawer shows only permission-allowed modules
 
-### MVP (Phase 3) complete when
+### Phase 3 complete when
+
+- System user sees live dashboard KPIs (not placeholders)
+- System user can browse carriers and open a carrier tenant portal from carrier detail
+- System customers, master, and secrets modules match their sub-phase deliverables
+- Errors surface as toasts; loading states are visible
+
+### MVP (Phase 4.1) complete when
 
 - Carrier user sees permission-appropriate dashboard
 - User can browse load orders by status and open order details
@@ -1209,12 +1286,13 @@ Use these as a **reference catalog**, not a port checklist.
 | 2026-07-01 | 1.2 | — | `src/` layout; light/dark/system theming |
 | 2026-07-01 | 1.3 | — | `src/redux/` folder; Redux Toolkit |
 | 2026-07-01 | 1.4 | — | Step-by-step workflow; phase progress tracker |
+| 2026-07-01 | 1.5 | — | Restructured Phases 3–5: System (3), Carrier (4), Customer (5) |
 
 ---
 
 ## Next Steps
 
-1. Open [Phase 3](#phase-3--carrier-portal-load-orders-week-610) and start the **first unchecked** item.
+1. Open [Phase 3.1 — System Dashboard](#phase-31--system-dashboard) and start the **first unchecked** item.
 2. After each task: verify → mark `- [x]` → update [Phase progress](#phase-progress).
 3. Phase 2 is complete (10/10).
 4. Portal-specific work: also track items in [PORTAL_ARCHITECTURE.md](./PORTAL_ARCHITECTURE.md).
