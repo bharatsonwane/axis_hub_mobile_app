@@ -1,14 +1,14 @@
-import SystemDashboardScreen from '@/pages/System/Dashboard/SystemDashboardScreen';
-import CarrierListScreen from '@/pages/System/Carriers/CarrierListScreen';
-import CarrierDetailsScreen from '@/pages/System/Carriers/CarrierDetailsScreen';
-import CustomersScreen from '@/pages/System/Customers/CustomersScreen';
-import SystemMasterScreen from '@/pages/System/Master/SystemMasterScreen';
-import SystemUserListScreen from '@/pages/System/SystemUsers/SystemUserListScreen';
-import SystemUserDetailsScreen from '@/pages/System/SystemUsers/SystemUserDetailsScreen';
-import SystemRoleListScreen from '@/pages/System/Roles/SystemRoleListScreen';
-import SystemRoleDetailsScreen from '@/pages/System/Roles/SystemRoleDetailsScreen';
-import SystemDbSecretsListScreen from '@/pages/System/DbSecrets/SystemDbSecretsListScreen';
-import SystemDbSecretDetailsScreen from '@/pages/System/DbSecrets/SystemDbSecretDetailsScreen';
+import SystemDashboardScreen from '@/screens/System/Dashboard/SystemDashboardScreen';
+import CarrierListScreen from '@/screens/System/Carriers/CarrierListScreen';
+import CarrierDetailsScreen from '@/screens/System/Carriers/CarrierDetailsScreen';
+import CustomersScreen from '@/screens/System/Customers/CustomersScreen';
+import SystemMasterScreen from '@/screens/System/Master/SystemMasterScreen';
+import SystemUserListScreen from '@/screens/System/SystemUsers/SystemUserListScreen';
+import SystemUserDetailsScreen from '@/screens/System/SystemUsers/SystemUserDetailsScreen';
+import SystemRoleListScreen from '@/screens/System/Roles/SystemRoleListScreen';
+import SystemRoleDetailsScreen from '@/screens/System/Roles/SystemRoleDetailsScreen';
+import SystemDbSecretsListScreen from '@/screens/System/DbSecrets/SystemDbSecretsListScreen';
+import SystemDbSecretDetailsScreen from '@/screens/System/DbSecrets/SystemDbSecretDetailsScreen';
 import {
   systemPermissionKeys,
   tenantPermissionKeys,

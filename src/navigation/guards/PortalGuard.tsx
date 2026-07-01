@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react';
 import type { MobileAuthRoute } from '@/navigation/routes/types';
-import AccessDeniedScreen from '@/pages/public/Access/AccessDeniedScreen';
+import AccessDeniedScreen from '@/screens/public/Access/AccessDeniedScreen';
 import { useAuthorization } from '@/navigation/guards/useAuthorization';
 
 type PortalGuardProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { createSystemDetailScreenStyles } from '@/pages/System/shared/detailScreen.styles';
+import { createSystemDetailScreenStyles } from '@/screens/System/shared/detailScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
 type DetailFieldProps = {
@@ -9,7 +9,11 @@ type DetailFieldProps = {
   masked?: boolean;
 };
 
-export default function DetailField({ label, value, masked }: DetailFieldProps) {
+export default function DetailField({
+  label,
+  value,
+  masked,
+}: DetailFieldProps) {
   const { colors } = useTheme();
   const styles = createSystemDetailScreenStyles({ colors });
 
