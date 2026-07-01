@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
+import 'react-native-svg';
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import App from './src/App';

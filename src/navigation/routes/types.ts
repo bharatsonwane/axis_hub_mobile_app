@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { LucideIcon } from 'lucide-react-native';
 
 export type PortalContext = 'system' | 'carriers' | 'customers';
 
@@ -11,8 +12,8 @@ export interface MobileAuthRoute {
   screen: ComponentType;
   isShowOnSidebar: boolean;
   title: string;
-  icon?: string;
-  portalIcon?: string;
+  icon?: LucideIcon;
+  portalIcon?: LucideIcon;
   isCollapsible?: boolean;
   childRoutes?: MobileAuthRoute[];
   portalContext?: PortalContext;

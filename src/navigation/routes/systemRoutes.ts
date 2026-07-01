@@ -1,3 +1,11 @@
+import {
+  Database,
+  Key,
+  LayoutDashboard,
+  Shield,
+  Spotlight,
+  Truck,
+} from 'lucide-react-native';
 import SystemDashboardScreen from '@/screens/System/Dashboard/system-dashboard';
 import CarrierListScreen from '@/screens/System/Carriers/CarrierList';
 import CarrierDetailsScreen from '@/screens/System/Carriers/CarrierDetails';
@@ -25,7 +33,7 @@ export const systemRoutes: MobileAuthRoute = {
   isShowOnSidebar: false,
   title: 'Admin Portal',
   portalContext: 'system',
-  portalIcon: 'shield',
+  portalIcon: Shield,
   childRoutes: [
     {
       path: '/system/dashboard',
@@ -36,7 +44,7 @@ export const systemRoutes: MobileAuthRoute = {
       screen: SystemDashboardScreen,
       isShowOnSidebar: true,
       title: 'Dashboard',
-      icon: 'dashboard',
+      icon: LayoutDashboard,
     },
     {
       path: '/system/carriers',
@@ -50,7 +58,7 @@ export const systemRoutes: MobileAuthRoute = {
       screen: CarrierListScreen,
       isShowOnSidebar: true,
       title: 'Carriers',
-      icon: 'truck',
+      icon: Truck,
       isCollapsible: true,
     },
     {
@@ -75,7 +83,7 @@ export const systemRoutes: MobileAuthRoute = {
       screen: CustomersScreen,
       isShowOnSidebar: true,
       title: 'Customers',
-      icon: 'users',
+      icon: Spotlight,
     },
     {
       path: '/system/master',
@@ -86,7 +94,7 @@ export const systemRoutes: MobileAuthRoute = {
       screen: SystemMasterScreen,
       isShowOnSidebar: true,
       title: 'System Master',
-      icon: 'settings',
+      icon: Database,
       isCollapsible: true,
     },
     {
@@ -144,7 +152,7 @@ export const systemRoutes: MobileAuthRoute = {
       screen: SystemDbSecretsListScreen,
       isShowOnSidebar: true,
       title: 'Secrets',
-      icon: 'key',
+      icon: Key,
     },
     {
       path: '/system/secrets/:secretId',

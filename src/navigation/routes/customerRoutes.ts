@@ -1,3 +1,4 @@
+import { LayoutDashboard, Users } from 'lucide-react-native';
 import { createPlaceholderScreen } from '@/navigation/createPlaceholderScreen';
 import {
   systemPermissionKeys,
@@ -18,7 +19,7 @@ export const customerRoutes: MobileAuthRoute = {
   isShowOnSidebar: false,
   title: 'Customer Portal',
   portalContext: 'customers',
-  portalIcon: 'users',
+  portalIcon: Users,
   pathParams: ['customerId'],
   childRoutes: [
     {
@@ -33,7 +34,7 @@ export const customerRoutes: MobileAuthRoute = {
       ),
       isShowOnSidebar: true,
       title: 'Dashboard',
-      icon: 'dashboard',
+      icon: LayoutDashboard,
     },
   ],
 };

@@ -1,3 +1,17 @@
+import {
+  Box,
+  Database,
+  Fuel,
+  Handshake,
+  LayoutDashboard,
+  PackageSearch,
+  Percent,
+  Receipt,
+  Settings,
+  ShoppingCart,
+  Truck,
+  UserPlus,
+} from 'lucide-react-native';
 import CarrierDashboardScreen from '@/screens/Carrier/Dashobard/carrier-dashboard';
 import ProfileSettingsScreen from '@/screens/Carrier/Settings/ProfileSettings';
 import { createPlaceholderScreen } from '@/navigation/createPlaceholderScreen';
@@ -17,7 +31,7 @@ export const carrierRoutes: MobileAuthRoute = {
   isShowOnSidebar: false,
   title: 'Carrier Portal',
   portalContext: 'carriers',
-  portalIcon: 'truck',
+  portalIcon: Truck,
   pathParams: ['carrierId'],
   childRoutes: [
     {
@@ -29,7 +43,7 @@ export const carrierRoutes: MobileAuthRoute = {
       screen: CarrierDashboardScreen,
       isShowOnSidebar: true,
       title: 'Dashboard',
-      icon: 'dashboard',
+      icon: LayoutDashboard,
     },
     {
       path: '/carriers/:carrierId/load-requests',
@@ -43,7 +57,7 @@ export const carrierRoutes: MobileAuthRoute = {
       ),
       isShowOnSidebar: true,
       title: 'Load Requests',
-      icon: 'package',
+      icon: PackageSearch,
     },
     {
       path: '/carriers/:carrierId/load-orders',
@@ -57,7 +71,7 @@ export const carrierRoutes: MobileAuthRoute = {
       ),
       isShowOnSidebar: true,
       title: 'Orders',
-      icon: 'cart',
+      icon: ShoppingCart,
       isCollapsible: true,
     },
     {
@@ -72,7 +86,7 @@ export const carrierRoutes: MobileAuthRoute = {
       ),
       isShowOnSidebar: true,
       title: 'Brokerage',
-      icon: 'briefcase',
+      icon: Handshake,
       isCollapsible: true,
     },
     {
@@ -87,7 +101,7 @@ export const carrierRoutes: MobileAuthRoute = {
       ),
       isShowOnSidebar: true,
       title: 'Master',
-      icon: 'database',
+      icon: Database,
       isCollapsible: true,
     },
     {
@@ -99,7 +113,7 @@ export const carrierRoutes: MobileAuthRoute = {
       screen: createPlaceholderScreen('Materials', 'Material types and rates.'),
       isShowOnSidebar: true,
       title: 'Materials',
-      icon: 'box',
+      icon: Box,
     },
     {
       path: '/carriers/:carrierId/fuel',
@@ -110,7 +124,7 @@ export const carrierRoutes: MobileAuthRoute = {
       screen: createPlaceholderScreen('Fuel', 'Fuel surcharges and rates.'),
       isShowOnSidebar: true,
       title: 'Fuel',
-      icon: 'fuel',
+      icon: Fuel,
     },
     {
       path: '/carriers/:carrierId/fsc',
@@ -121,7 +135,7 @@ export const carrierRoutes: MobileAuthRoute = {
       screen: createPlaceholderScreen('FSC', 'Fuel surcharge configuration.'),
       isShowOnSidebar: true,
       title: 'FSC',
-      icon: 'percent',
+      icon: Percent,
     },
     {
       path: '/carriers/:carrierId/billing',
@@ -132,7 +146,7 @@ export const carrierRoutes: MobileAuthRoute = {
       screen: createPlaceholderScreen('Billing', 'Invoices and settlements.'),
       isShowOnSidebar: true,
       title: 'Billing',
-      icon: 'receipt',
+      icon: Receipt,
     },
     {
       path: '/carriers/:carrierId/onboarding',
@@ -146,7 +160,7 @@ export const carrierRoutes: MobileAuthRoute = {
       ),
       isShowOnSidebar: true,
       title: 'Onboarding',
-      icon: 'user-plus',
+      icon: UserPlus,
     },
     {
       path: '/carriers/:carrierId/settings',
@@ -157,7 +171,7 @@ export const carrierRoutes: MobileAuthRoute = {
       screen: ProfileSettingsScreen,
       isShowOnSidebar: true,
       title: 'Settings',
-      icon: 'settings',
+      icon: Settings,
     },
   ],
 };
