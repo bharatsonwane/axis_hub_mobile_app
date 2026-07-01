@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
-import { createModulePlaceholderScreenStyles } from '@/screens/common/modulePlaceholderScreen.styles';
+import { createModulePlaceholderScreenStyles } from '@/pages/common/modulePlaceholderScreen.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 
 type ModulePlaceholderScreenProps = {

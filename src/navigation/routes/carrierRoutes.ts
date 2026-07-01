@@ -1,5 +1,5 @@
-import CarrierDashboardScreen from '@/screens/carrier/CarrierDashboardScreen';
-import ProfileSettingsScreen from '@/screens/settings/ProfileSettingsScreen';
+import CarrierDashboard from '@/pages/Carrier/Dashobard/carrier-dashboard';
+import ProfileSettings from '@/pages/Carrier/Settings/ProfileSettings';
 import { createPlaceholderScreen } from '@/navigation/createPlaceholderScreen';
 import {
   systemPermissionKeys,
@@ -13,7 +13,7 @@ export const carrierRoutes: MobileAuthRoute = {
   allowedSystemPermissions: [systemPermissionKeys.ANY],
   allowedTenantPermissions: [tenantPermissionKeys.ANY],
   description: 'Carrier Portal',
-  screen: CarrierDashboardScreen,
+  screen: CarrierDashboard,
   isShowOnSidebar: false,
   title: 'Carrier Portal',
   portalContext: 'carriers',
@@ -26,7 +26,7 @@ export const carrierRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'Carrier Dashboard',
-      screen: CarrierDashboardScreen,
+      screen: CarrierDashboard,
       isShowOnSidebar: true,
       title: 'Dashboard',
       icon: 'dashboard',
@@ -154,7 +154,7 @@ export const carrierRoutes: MobileAuthRoute = {
       allowedSystemPermissions: [systemPermissionKeys.ANY],
       allowedTenantPermissions: [tenantPermissionKeys.ANY],
       description: 'Settings',
-      screen: ProfileSettingsScreen,
+      screen: ProfileSettings,
       isShowOnSidebar: true,
       title: 'Settings',
       icon: 'settings',

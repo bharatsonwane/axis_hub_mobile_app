@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
 import { usePortalContext } from '@/navigation/PortalContextProvider';
-import { createDashboardScreenStyles } from '@/screens/common/dashboardScreen.styles';
+import { createDashboardScreenStyles } from '@/pages/common/dashboardScreen.styles';
 import { useAppSelector } from '@/redux/store';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -12,7 +12,7 @@ const metrics = [
   { label: 'Delivered today', value: '—' },
 ];
 
-export default function CarrierDashboardScreen() {
+export default function CarrierDashboard() {
   const { colors } = useTheme();
   const styles = createDashboardScreenStyles({ colors });
   const { tenantId } = usePortalContext();

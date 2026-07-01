@@ -11,15 +11,15 @@ import {
 import { envConfig } from '@/config/envConfig';
 import { useAuth } from '@/contexts/AuthContextProvider';
 import { LoginSchema } from '@/schemaTypes/loginSchemaTypes';
-import { createLoginScreenStyles } from '@/screens/auth/loginScreen.styles';
+import { createLoginPageStyles } from '@/pages/public/login/loginPage.styles';
 import { useTheme } from '@/providers/ThemeProvider';
 import { showSuccessToast } from '@/utils/toast';
 
-export default function LoginScreen() {
+export default function LoginPage() {
   const { signIn, isLoading, error } = useAuth();
   const { colors } = useTheme();
   const { styles, placeholderTextColor, activityIndicatorColor } =
-    createLoginScreenStyles({ colors, isLoading });
+    createLoginPageStyles({ colors, isLoading });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

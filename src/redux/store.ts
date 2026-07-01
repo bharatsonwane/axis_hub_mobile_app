@@ -12,6 +12,10 @@ import {
 } from 'redux-persist';
 import { useDispatch, useSelector } from 'react-redux';
 import authSlice from '@/redux/slices/authSlice';
+import { carrierReducer, systemDashboardReducer } from '@/redux/slices/systemCarrierSlice';
+import systemUserSlice from '@/redux/slices/systemUserSlice';
+import systemRoleSlice from '@/redux/slices/systemRoleSlice';
+import systemDbSecretsSlice from '@/redux/slices/systemDbSecretsSlice';
 
 const persistConfig = {
   key: 'root',
@@ -21,6 +25,11 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: authSlice.reducer,
+  carrier: carrierReducer,
+  systemDashboard: systemDashboardReducer,
+  systemUser: systemUserSlice.reducer,
+  systemRole: systemRoleSlice.reducer,
+  systemDbSecrets: systemDbSecretsSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

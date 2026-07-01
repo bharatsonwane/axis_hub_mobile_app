@@ -6,10 +6,13 @@ import {
 import type { MobileAuthRoute } from '@/navigation/routes/types';
 import { withPortalGuard } from '@/navigation/guards/PortalGuard';
 import PortalDrawerContent from '@/navigation/PortalDrawerContent';
-import ProfileSettingsScreen from '@/screens/settings/ProfileSettingsScreen';
+import ProfileSettings from '@/pages/Carrier/Settings/ProfileSettings';
 import PortalHeader from '@/components/layouts/PortalHeader';
 import { useAppSelector } from '@/redux/store';
-import { getSidebarRoutesForPortal } from '@/utils/navigation-helper';
+import {
+  getAllRoutesForPortal,
+  getSidebarRoutesForPortal,
+} from '@/utils/navigation-helper';
 
 export type PortalDrawerParamList = Record<string, undefined>;
 
@@ -36,6 +39,7 @@ export function buildPortalDrawerNavigator(portalRoute: MobileAuthRoute) {
   return function PortalDrawerNavigator() {
     const user = useAppSelector(state => state.user.user);
     const sidebarRoutes = getSidebarRoutesForPortal({ portalRoute, user });
+    const allRoutes = getAllRoutesForPortal({ portalRoute, user });
     const initialRouteName =
       sidebarRoutes.find(route => route.screenName.includes('Dashboard'))
         ?.screenName ?? sidebarRoutes[0]?.screenName;
@@ -52,17 +56,22 @@ export function buildPortalDrawerNavigator(portalRoute: MobileAuthRoute) {
           header: PortalHeaderComponent,
         }}
       >
-        {sidebarRoutes.map(route => (
+        {allRoutes.map(route => (
           <Drawer.Screen
             key={route.screenName}
             name={route.screenName}
             component={withPortalGuard(route.screen, route)}
-            options={{ title: route.title }}
+            options={{
+              title: route.title,
+              drawerItemStyle: route.isShowOnSidebar
+                ? undefined
+                : { display: 'none' },
+            }}
           />
         ))}
         <Drawer.Screen
           name="ProfileSettings"
-          component={ProfileSettingsScreen}
+          component={ProfileSettings}
           options={{
             title: 'Profile & Settings',
             drawerItemStyle: { display: 'none' },

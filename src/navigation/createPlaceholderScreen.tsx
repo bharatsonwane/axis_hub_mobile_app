@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import ModulePlaceholderScreen from '@/screens/common/ModulePlaceholderScreen';
+import ModulePlaceholderScreen from '@/pages/common/ModulePlaceholderScreen';
 
 export function createPlaceholderScreen(
   title: string,

@@ -266,7 +266,7 @@ axis_hub_mobile_app/
 └── src/                        # ★ All application code here
     ├── app/
     ├── navigation/
-    ├── screens/
+    ├── pages/
     ├── components/
     ├── contexts/
     ├── providers/
@@ -294,7 +294,7 @@ axis_hub_mobile_app/
 | **Entry** | `index.js` imports `src/app/App.tsx` |
 | **No root `App.tsx`** | Remove scaffold `App.tsx` from project root after migration |
 | **Redux** | `src/redux/` — `store.ts`, `slices/`, `actions/` (mirror web layout) |
-| **Screens by portal** | `src/screens/system/`, `carrier/`, `customer/`, `auth/` |
+| **Pages by portal** | `src/pages/` — mirrors web `frontend/src/pages/` (`System/`, `Carrier/`, `public/`) |
 | **Shared UI** | `src/components/ui/` — theme-aware primitives |
 
 ### Full `src/` tree
@@ -334,11 +334,12 @@ src/
 │   ├── PortalSwitcher.tsx
 │   ├── buildPortalNavigator.tsx
 │   └── linking.ts
-├── screens/
-│   ├── auth/
-│   ├── system/
-│   ├── carrier/
-│   └── customer/
+├── pages/                          # Mirrors web frontend/src/pages/
+│   ├── public/login/               # LoginPage
+│   ├── public/Access/              # AccessDenied
+│   ├── common/                     # Shared placeholders, dashboard styles
+│   ├── System/                     # Dashboard, Carriers, SystemUsers, Roles, DbSecrets, …
+│   └── Carrier/                    # Dashobard, Settings, … (future modules)
 ├── components/
 │   ├── ui/                         # Themed Button, Input, Card, etc.
 │   └── layouts/
@@ -697,12 +698,12 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 | **0** | Foundation | Complete | 17 / 17 |
 | **1** | Authentication & Session | Complete | 11 / 12 |
 | **2** | Multi-Portal Shell | Complete | 10 / 10 |
-| **3** | System Portal Feature Screens | Not started | 0 / 13 |
+| **3** | System Portal Feature Screens | In progress | 11 / 13 |
 | **4** | Carrier Portal Feature Screens | Not started | 0 / 15 |
 | **5** | Customer Portal Feature Screens | Not started | 0 / 0 |
 | **6** | Polish & Release | Not started | 0 / 7 |
 
-**Current focus:** Phase 3 — System Portal Feature Screens (start with Phase 3.1 Dashboard).
+**Current focus:** Phase 3.3 — System Customers (blocked on API; 11/13 done).
 
 ---
 
@@ -781,9 +782,9 @@ Phase 3 is split into sub-phases by system module. Complete each sub-phase befor
 
 #### Phase 3.1 — System Dashboard
 
-- [ ] Replace placeholder with live KPI cards (read-only metrics aligned with web `/system/dashboard`)
-- [ ] Pull-to-refresh on dashboard data
-- [ ] Loading, empty, and error states with toasts
+- [x] Replace placeholder with live KPI cards (read-only metrics aligned with web `/system/dashboard`)
+- [x] Pull-to-refresh on dashboard data
+- [x] Loading, empty, and error states with toasts
 
 **Reference web paths:**
 - `frontend/src/pages/System/Dashboard/` (or equivalent system dashboard pages)
@@ -792,9 +793,9 @@ Phase 3 is split into sub-phases by system module. Complete each sub-phase befor
 
 #### Phase 3.2 — System Carriers
 
-- [ ] Carrier list (paginated, pull-to-refresh, search)
-- [ ] Carrier detail summary screen (read-only key fields)
-- [ ] Navigate from carrier detail → open Carrier portal for that tenant (`switchToCarrierPortal`)
+- [x] Carrier list (paginated, pull-to-refresh, search)
+- [x] Carrier detail summary screen (read-only key fields)
+- [x] Navigate from carrier detail → open Carrier portal for that tenant (`switchToCarrierPortal`)
 
 **Reference web paths:**
 - `frontend/src/pages/System/Carrier/`
@@ -814,9 +815,9 @@ Phase 3 is split into sub-phases by system module. Complete each sub-phase befor
 
 #### Phase 3.4 — System Master
 
-- [ ] System users list + detail (read-first)
-- [ ] System roles list (read-first)
-- [ ] Permission-aware navigation (match web `allowedSystemPermissions`)
+- [x] System users list + detail (read-first)
+- [x] System roles list (read-first)
+- [x] Permission-aware navigation (match web `allowedSystemPermissions`)
 
 **Reference web paths:**
 - `frontend/src/pages/System/Master/`
@@ -825,8 +826,8 @@ Phase 3 is split into sub-phases by system module. Complete each sub-phase befor
 
 #### Phase 3.5 — System Secrets
 
-- [ ] System secrets list (read-only; no secret values in logs)
-- [ ] Secret detail / metadata view (read-only; editing remains web-first)
+- [x] System secrets list (read-only; no secret values in logs)
+- [x] Secret detail / metadata view (read-only; editing remains web-first)
 
 **Reference web paths:**
 - `frontend/src/pages/System/Secrets/` (or equivalent)
@@ -945,7 +946,7 @@ Pick next unchecked item
 
 ### Starting point
 
-**Next task:** Phase 3.1 → Replace system dashboard placeholder with live KPI cards
+**Next task:** Phase 3.3 → System customers (when `/api/system/customers` lands on web)
 
 ---
 

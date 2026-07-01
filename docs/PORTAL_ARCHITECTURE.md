@@ -138,7 +138,7 @@ All portal-related code lives under **`axis_hub_mobile_app/src/`**:
 | Redux store | `src/redux/store.ts`, `src/redux/slices/`, `src/redux/actions/` |
 | Portal switcher UI | `src/navigation/PortalSwitcher.tsx` |
 | Portal shell layout | `src/components/layouts/PortalShell.tsx` |
-| Screens | `src/screens/system/`, `carrier/`, `customer/`, `auth/` |
+| Pages | `src/pages/` — mirrors web `frontend/src/pages/` (`System/`, `Carrier/`, `public/`) |
 | Theme (light/dark) | `src/providers/ThemeProvider/`, `src/theme/` |
 
 Import alias: `@/` → `src/` (e.g. `@/navigation/routes`).
@@ -433,7 +433,7 @@ Portal tasks mirror items in the main plan. Mark `- [x]` here **when that portal
 |-------|------|
 | Phase 0–1 (Foundation + Auth) | 8 / 8 |
 | Phase 2 (Portal shell) | 7 / 7 |
-| Phase 3 (System portal features) | 0 / 13 |
+| Phase 3 (System portal features) | 11 / 13 |
 | Phase 4 (Carrier portal features) | 0 / 15 |
 | Phase 5 (Customer portal features) | TBD |
 
@@ -462,11 +462,11 @@ Portal tasks mirror items in the main plan. Mark `- [x]` here **when that portal
 
 ### Phase 3 — System portal feature screens
 
-- [ ] Phase 3.1 — System dashboard (live KPIs)
-- [ ] Phase 3.2 — System carriers (list, detail, open carrier portal)
-- [ ] Phase 3.3 — System customers (list, detail)
-- [ ] Phase 3.4 — System master (users, roles)
-- [ ] Phase 3.5 — System secrets (read-only metadata)
+- [x] Phase 3.1 — System dashboard (live KPIs)
+- [x] Phase 3.2 — System carriers (list, detail, open carrier portal)
+- [ ] Phase 3.3 — System customers (list, detail) — blocked: no system customer API on web/backend yet
+- [x] Phase 3.4 — System master (users, roles)
+- [x] Phase 3.5 — System secrets (read-only metadata)
 - [ ] Deep linking config (system routes)
 
 ### Phase 4 — Carrier portal feature screens
