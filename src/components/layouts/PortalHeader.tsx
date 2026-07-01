@@ -24,15 +24,28 @@ export default function PortalHeader({
     colors,
     paddingTop: insets.top,
   });
+  const showBack = navigation.canGoBack();
+
+  const handleLeadingPress = () => {
+    if (showBack) {
+      navigation.goBack();
+      return;
+    }
+    navigation.openDrawer();
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <Pressable
-          onPress={() => navigation.openDrawer()}
+          onPress={handleLeadingPress}
           style={styles.menuButton}
+          accessibilityRole="button"
+          accessibilityLabel={showBack ? 'Go back' : 'Open menu'}
         >
-          <Text style={styles.menuIcon}>☰</Text>
+          <Text style={showBack ? styles.backIcon : styles.menuIcon}>
+            {showBack ? '‹' : '☰'}
+          </Text>
         </Pressable>
 
         <Pressable

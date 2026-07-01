@@ -26,10 +26,17 @@ export function createPortalHeaderStyles({
     },
     menuButton: {
       padding: spacing.xs,
+      minWidth: 36,
+      alignItems: 'center',
     },
     menuIcon: {
       fontSize: 22,
       fontWeight: '700',
+      color: colors.sidebarForeground,
+    },
+    backIcon: {
+      fontSize: 26,
+      fontWeight: '600',
       color: colors.sidebarForeground,
     },
     titleBlock: {

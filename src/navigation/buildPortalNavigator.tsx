@@ -52,6 +52,7 @@ export function buildPortalDrawerNavigator(portalRoute: MobileAuthRoute) {
       <Drawer.Navigator
         initialRouteName={initialRouteName}
         drawerContent={DrawerContent}
+        backBehavior="history"
         screenOptions={{
           header: PortalHeaderComponent,
         }}
