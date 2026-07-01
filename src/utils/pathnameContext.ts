@@ -1,22 +1,26 @@
 import { store } from '@/redux/store';
-import type { PortalContext } from '@/navigation/routes/types';
+import { getPortalContextStore } from '@/utils/portalContextStore';
 
 /**
  * Mobile equivalent of web URL pathname context.
- * Reads active tenant/customer from Redux until portal navigation is fully wired.
+ * Reads portal state from PortalContextProvider (persisted) with Redux fallbacks.
  */
 export const getPathnameContextData = (): {
-  portalContext: PortalContext;
+  portalContext: ReturnType<typeof getPortalContextStore>['portalContext'];
   tenantId: number;
   customerId: number;
 } => {
+  const portal = getPortalContextStore();
   const state = store.getState();
   const tenantId =
-    state.user.currentTenant?.id ?? state.user.user?.activeTenantId ?? 0;
+    portal.tenantId ||
+    state.user.currentTenant?.id ||
+    state.user.user?.activeTenantId ||
+    0;
 
   return {
-    portalContext: tenantId > 0 ? 'carriers' : 'system',
+    portalContext: portal.portalContext,
     tenantId,
-    customerId: 0,
+    customerId: portal.customerId,
   };
 };

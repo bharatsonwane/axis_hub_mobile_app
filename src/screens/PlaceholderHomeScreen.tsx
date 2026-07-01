@@ -2,6 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { envConfig } from '@/config/envConfig';
 import ScreenContainer from '@/components/layouts/ScreenContainer';
+import { useAuth } from '@/contexts/AuthContextProvider';
 import { usePortalContext } from '@/navigation/PortalContextProvider';
 import { useTheme } from '@/providers/ThemeProvider';
 import type { ThemePreference } from '@/theme/types';
@@ -12,8 +13,9 @@ const themeOptions: ThemePreference[] = ['light', 'dark', 'system'];
 
 export default function PlaceholderHomeScreen() {
   const { colors, theme, resolvedTheme, setTheme } = useTheme();
-  const { portalContext } = usePortalContext();
-  const isAuthenticated = useAppSelector(state => state.user.isAuthenticated);
+  const { portalContext, tenantId } = usePortalContext();
+  const { loggedInUser, logout } = useAuth();
+  const currentTenant = useAppSelector(state => state.user.currentTenant);
 
   return (
     <ScreenContainer>
@@ -30,21 +32,23 @@ export default function PlaceholderHomeScreen() {
           {envConfig.app.APP_NAME}
         </Text>
         <Text style={[styles.subtitle, { color: colors.mutedForeground }]}>
-          Mobile foundation ready
+          Signed in
         </Text>
 
         <View style={styles.metaBlock}>
           <Text style={[styles.meta, { color: colors.mutedForeground }]}>
+            User: {loggedInUser?.email ?? '—'}
+          </Text>
+          <Text style={[styles.meta, { color: colors.mutedForeground }]}>
             Portal: {portalContext}
           </Text>
           <Text style={[styles.meta, { color: colors.mutedForeground }]}>
+            Tenant:{' '}
+            {currentTenant?.name ??
+              (tenantId ? String(tenantId) : '—')}
+          </Text>
+          <Text style={[styles.meta, { color: colors.mutedForeground }]}>
             Theme: {theme} ({resolvedTheme})
-          </Text>
-          <Text style={[styles.meta, { color: colors.mutedForeground }]}>
-            API: {envConfig.api.API_BASE_URL}
-          </Text>
-          <Text style={[styles.meta, { color: colors.mutedForeground }]}>
-            Auth: {isAuthenticated ? 'signed in' : 'signed out'}
           </Text>
         </View>
 
@@ -82,6 +86,22 @@ export default function PlaceholderHomeScreen() {
             );
           })}
         </View>
+
+        <Pressable
+          onPress={() => {
+            logout().catch(() => undefined);
+          }}
+          style={[
+            styles.logoutButton,
+            {
+              backgroundColor: colors.destructive,
+            },
+          ]}
+        >
+          <Text style={[styles.logoutButtonText, { color: colors.background }]}>
+            Log out
+          </Text>
+        </Pressable>
       </View>
     </ScreenContainer>
   );
@@ -125,5 +145,15 @@ const styles = StyleSheet.create({
   },
   themeButtonText: {
     textTransform: 'capitalize',
+  },
+  logoutButton: {
+    marginTop: spacing.md,
+    borderRadius: radius.md,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  logoutButtonText: {
+    fontSize: typography.body,
+    fontWeight: '600',
   },
 });

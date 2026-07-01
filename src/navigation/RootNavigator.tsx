@@ -1,17 +1,10 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import PlaceholderHomeScreen from '@/screens/PlaceholderHomeScreen';
-
-export type RootStackParamList = {
-  Home: undefined;
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
+import { useAuth } from '@/contexts/AuthContextProvider';
+import AppNavigator from '@/navigation/AppNavigator';
+import AuthNavigator from '@/navigation/AuthNavigator';
 
 export default function RootNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={PlaceholderHomeScreen} />
-    </Stack.Navigator>
-  );
+  const { isAuthenticated } = useAuth();
+
+  return isAuthenticated ? <AppNavigator /> : <AuthNavigator />;
 }

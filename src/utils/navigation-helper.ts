@@ -1,5 +1,12 @@
-import type { MobileAuthRoute } from '@/navigation/routes/types';
+import type { MobileAuthRoute, PortalContext } from '@/navigation/routes/types';
 import type { Permission, User } from '@/schemaTypes/authSchemaTypes';
+
+export type PortalDestination = {
+  portalContext: PortalContext;
+  tenantId: number;
+  customerId: number;
+  path: string;
+};
 
 const hasPermission = (
   required: string[] | undefined,
@@ -68,6 +75,21 @@ export const filterRoutesByAuthorization = ({
         : undefined,
     }));
 
+export const getDefaultRoute = (routes: MobileAuthRoute[]): string => {
+  if (routes.length === 0) {
+    return '/login';
+  }
+
+  const firstRoute = routes[0];
+
+  if (firstRoute.childRoutes && firstRoute.childRoutes.length > 0) {
+    const firstChild = firstRoute.childRoutes[0];
+    return `${firstRoute.path}${firstChild.path}`.replace(/\/+/g, '/');
+  }
+
+  return `${firstRoute.path}`.replace(/\/+/g, '/');
+};
+
 export const getDefaultRouteForUser = (
   routes: MobileAuthRoute[],
   user: Pick<User, 'isSystemUser' | 'activeTenantId' | 'systemPermissions'> | null,
@@ -76,11 +98,58 @@ export const getDefaultRouteForUser = (
     return '/login';
   }
 
-  if (user.activeTenantId && (!user.isSystemUser || !user.systemPermissions?.length)) {
+  const hasSystemPermissions = (user.systemPermissions?.length ?? 0) > 0;
+
+  if (
+    user.activeTenantId &&
+    (!user.isSystemUser || !hasSystemPermissions)
+  ) {
     return `/carriers/${user.activeTenantId}/dashboard`;
   }
 
   const allowed = filterRoutesByAuthorization({ routes, user });
+  return getDefaultRoute(allowed);
+};
+
+export const getDefaultPortalDestination = (
+  user: Pick<
+    User,
+    'isSystemUser' | 'activeTenantId' | 'systemPermissions'
+  > | null,
+  routes: MobileAuthRoute[],
+): PortalDestination => {
+  if (!user) {
+    return {
+      portalContext: 'carriers',
+      tenantId: 0,
+      customerId: 0,
+      path: '/login',
+    };
+  }
+
+  const path = getDefaultRouteForUser(routes, user);
+  const hasSystemPermissions = (user.systemPermissions?.length ?? 0) > 0;
+
+  if (
+    user.activeTenantId &&
+    (!user.isSystemUser || !hasSystemPermissions)
+  ) {
+    return {
+      portalContext: 'carriers',
+      tenantId: user.activeTenantId,
+      customerId: 0,
+      path,
+    };
+  }
+
+  const allowed = filterRoutesByAuthorization({ routes, user });
   const first = allowed[0];
-  return first?.path ?? '/login';
+  const portalContext = first?.portalContext ?? 'system';
+
+  return {
+    portalContext,
+    tenantId: portalContext === 'carriers' ? user.activeTenantId ?? 0 : 0,
+    customerId: 0,
+    path,
+  };
 };

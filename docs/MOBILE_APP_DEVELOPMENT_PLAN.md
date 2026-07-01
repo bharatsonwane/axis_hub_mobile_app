@@ -695,14 +695,14 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 | Phase | Name | Status | Done |
 |-------|------|--------|------|
 | **0** | Foundation | Complete | 17 / 17 |
-| **1** | Authentication & Session | Not started | 0 / 12 |
+| **1** | Authentication & Session | Complete | 11 / 12 |
 | **2** | Multi-Portal Shell | Not started | 0 / 10 |
 | **3** | Carrier: Load Orders | Not started | 0 / 6 |
 | **4** | Load Requests & Load Board | Not started | 0 / 4 |
 | **5** | System Portal & Driver Views | Not started | 0 / 7 |
 | **6** | Polish & Release | Not started | 0 / 7 |
 
-**Current focus:** Phase 1 — Authentication & Session.
+**Current focus:** Phase 2 — Multi-Portal Shell.
 
 ---
 
@@ -725,7 +725,7 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 - [x] Define `MobileAuthRoute` type and stub `mobileAuthRoutes` (three portal roots)
 - [x] Add `PortalContextProvider` (portal state only; full switching in Phase 2)
 - [x] Remove `NewAppScreen` template; add themed placeholder home screen
-- [x] Add `.env.example` for `API_BASE_URL`, app env
+- [x] Add `.env.sample` for `API_BASE_URL`, app env
 - [x] Document local run instructions in `docs/RUN_GUIDE.md`
 
 **Deliverable:** App launches from `src/` on iOS/Android with working light/dark/system theme and configured API client.
@@ -736,18 +736,18 @@ Use the checkboxes below as the **single source of truth** for progress. Work in
 
 **Objective:** Users can log in and stay authenticated.
 
-- [ ] Port `AuthContextProvider` logic from web
-- [ ] Login screen (email/password) — mirror `LoginPage.tsx`
-- [ ] `POST /api/auth/signin` integration
-- [ ] Store JWT in Keychain/Keystore (not AsyncStorage alone)
-- [ ] Session restore on app launch — `GET /api/auth/profile`
-- [ ] 401 handling → logout + redirect to login
-- [ ] Auth navigator vs. app navigator (logged out / logged in)
-- [ ] `PortalContextProvider`: persist `portalContext`, `tenantId`, `customerId`
-- [ ] Port `getDefaultRouteForUser` — route user to correct portal after login
-- [ ] Tenant context: sync `activeTenantId`, pass to profile and API calls
-- [ ] Permission helper — port `checkAuthorization` and `filterRoutesByAuthorization`
-- [ ] Logout flow
+- [x] Port `AuthContextProvider` logic from web
+- [x] Login screen (email/password) — mirror `LoginPage.tsx`
+- [x] `POST /api/auth/signin` integration
+- [x] Store JWT in Keychain/Keystore (not AsyncStorage alone)
+- [x] Session restore on app launch — `GET /api/auth/profile`
+- [x] 401 handling → logout + redirect to login
+- [x] Auth navigator vs. app navigator (logged out / logged in)
+- [x] `PortalContextProvider`: persist `portalContext`, `tenantId`, `customerId`
+- [x] Port `getDefaultRouteForUser` — route user to correct portal after login
+- [x] Tenant context: sync `activeTenantId`, pass to profile and API calls
+- [x] Permission helper — port `checkAuthorization` and `filterRoutesByAuthorization`
+- [x] Logout flow
 - [ ] (Optional) Google OAuth via deep link / in-app browser
 
 **Deliverable:** End-to-end login, session persistence, logout, correct portal destination on login.
@@ -878,7 +878,7 @@ Pick next unchecked item
 
 ### Starting point
 
-**Next task:** Phase 1 → `Port AuthContextProvider logic from web`
+**Next task:** Phase 2 → `SystemPortalNavigator`, `CarrierPortalNavigator`, `CustomerPortalNavigator`
 
 ---
 
@@ -1214,7 +1214,7 @@ Use these as a **reference catalog**, not a port checklist.
 
 ## Next Steps
 
-1. Open [Phase 1](#phase-1--authentication--session-week-24) and start the **first unchecked** item.
+1. Open [Phase 2](#phase-2--multi-portal-shell-week-46) and start the **first unchecked** item.
 2. After each task: verify → mark `- [x]` → update [Phase progress](#phase-progress).
-3. When Phase 1 is complete (12/12), move to [Phase 2](#phase-2--multi-portal-shell-week-46).
+3. Phase 1 is complete (11/12 — optional Google OAuth deferred).
 4. Portal-specific work: also track items in [PORTAL_ARCHITECTURE.md](./PORTAL_ARCHITECTURE.md).

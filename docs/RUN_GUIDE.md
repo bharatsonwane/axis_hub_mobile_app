@@ -12,7 +12,7 @@
 ```bash
 cd axis_hub_mobile_app
 npm install
-cp .env.example .env
+cp .env.sample .env
 cd ios && pod install && cd ..
 ```
 
@@ -45,6 +45,15 @@ npm run lint
 
 - JS entry: `index.js` → `src/app/App.tsx`
 - Path alias: `@/` → `src/`
+
+## Auth flow (Phase 1)
+
+1. Launch app → session restore reads JWT from Keychain → `GET /api/auth/profile`
+2. No token or invalid session → **Login** screen
+3. Sign in → token stored in Keychain → profile fetch → portal context set from `getDefaultPortalDestination`
+4. **Log out** from the home placeholder screen, or via 401 from any API call
+
+Ensure `.env` `API_BASE_URL` points at a reachable backend before testing login.
 
 ## Troubleshooting
 

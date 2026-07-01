@@ -1,21 +1,25 @@
 import React, {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { PortalContext } from '@/navigation/routes/types';
 import type { MobileAuthRoute } from '@/navigation/routes/types';
 import { mobileAuthRoutes } from '@/navigation/routes';
+import {
+  getPortalContextStore,
+  setPortalContextStore,
+  type PortalState,
+} from '@/utils/portalContextStore';
 
-type PortalState = {
-  portalContext: PortalContext;
-  tenantId: number;
-  customerId: number;
-};
+const PORTAL_STORAGE_KEY = 'axis-portal-context';
 
 type PortalContextValue = PortalState & {
+  isHydrated: boolean;
   setPortal: (portalContext: PortalContext, entityId?: number) => void;
   switchToSystemPortal: () => void;
   switchToCarrierPortal: (tenantId: number) => void;
@@ -31,8 +35,58 @@ const initialState: PortalState = {
   customerId: 0,
 };
 
+const parseStoredPortalState = (raw: string | null): PortalState => {
+  if (!raw) {
+    return initialState;
+  }
+
+  try {
+    const parsed = JSON.parse(raw) as Partial<PortalState>;
+    return {
+      portalContext: parsed.portalContext ?? initialState.portalContext,
+      tenantId: parsed.tenantId ?? 0,
+      customerId: parsed.customerId ?? 0,
+    };
+  } catch {
+    return initialState;
+  }
+};
+
 export function PortalContextProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<PortalState>(initialState);
+  const [state, setState] = useState<PortalState>(getPortalContextStore());
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const hydrate = async () => {
+      const raw = await AsyncStorage.getItem(PORTAL_STORAGE_KEY);
+      const restored = parseStoredPortalState(raw);
+
+      if (isMounted) {
+        setState(restored);
+        setPortalContextStore(restored);
+        setIsHydrated(true);
+      }
+    };
+
+    hydrate().catch(() => undefined);
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
+    setPortalContextStore(state);
+    AsyncStorage.setItem(PORTAL_STORAGE_KEY, JSON.stringify(state)).catch(
+      () => undefined,
+    );
+  }, [isHydrated, state]);
 
   const setPortal = (portalContext: PortalContext, entityId = 0) => {
     setState({
@@ -45,6 +99,7 @@ export function PortalContextProvider({ children }: { children: ReactNode }) {
   const value = useMemo<PortalContextValue>(
     () => ({
       ...state,
+      isHydrated,
       setPortal,
       switchToSystemPortal: () => setPortal('system'),
       switchToCarrierPortal: (tenantId: number) =>
@@ -56,7 +111,7 @@ export function PortalContextProvider({ children }: { children: ReactNode }) {
           route => route.portalContext === state.portalContext,
         ),
     }),
-    [state],
+    [isHydrated, state],
   );
 
   return (

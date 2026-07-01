@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { AuthContextProvider } from '@/contexts/AuthContextProvider';
 import { PortalContextProvider } from '@/navigation/PortalContextProvider';
 import RootNavigator from '@/navigation/RootNavigator';
 import { useTheme } from '@/providers/ThemeProvider';
@@ -20,7 +21,9 @@ export default function AppProviders() {
             : lightNavigationTheme
         }
       >
-        <RootNavigator />
+        <AuthContextProvider>
+          <RootNavigator />
+        </AuthContextProvider>
       </NavigationContainer>
     </PortalContextProvider>
   );
